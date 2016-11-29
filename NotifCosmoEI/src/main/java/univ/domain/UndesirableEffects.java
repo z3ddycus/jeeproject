@@ -5,7 +5,7 @@ import java.io.Serializable;
 
 @Entity
 @Table(name = "UndesirableEffects")
-public class UnderisableEffects implements Serializable {
+public class UndesirableEffects implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -13,5 +13,8 @@ public class UnderisableEffects implements Serializable {
 
     @Column(name = "Name")
     private String name;
+
+    @Column(name = "Ingredient")
+    private long ingredient;
 
 }
