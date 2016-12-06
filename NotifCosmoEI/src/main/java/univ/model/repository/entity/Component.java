@@ -42,4 +42,5 @@ public class Component {
     public Component getParent() {
         return parent;
     }
+
 }
