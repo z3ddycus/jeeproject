@@ -28,12 +28,11 @@ public class UserController {
     @RequestMapping(value = "/registration", method = RequestMethod.POST)
     public String registration(@ModelAttribute("userForm") User userForm, BindingResult bindingResult, Model model) {
 
+        System.out.println(userForm);
         if (bindingResult.hasErrors()) {
             return "registration";
         }
-
         userService.save(userForm);
-
         securityService.autologin(userForm.getUsername(), userForm.getPassword());
 
         return "redirect:/index";
