@@ -1,4 +1,4 @@
-package univ.model.repository.entity;
+package univ.domain;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;

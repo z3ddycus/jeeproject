@@ -1,7 +1,7 @@
-package univ.model.repository;
+package univ.repository;
 
 import org.springframework.data.repository.CrudRepository;
-import univ.model.repository.entity.Component;
+import univ.domain.Component;
 
 
 public interface ComponentRepository extends CrudRepository<Component, Long> {
