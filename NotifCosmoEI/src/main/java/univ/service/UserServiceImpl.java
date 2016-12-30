@@ -7,8 +7,6 @@ import univ.domain.User;
 import univ.repository.RoleRepository;
 import univ.repository.UserRepository;
 
-import java.util.HashSet;
-
 @Service
 public class UserServiceImpl implements UserService {
 
@@ -23,8 +21,9 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void save(User user) {
-        user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
-        user.setRoles(new HashSet<>(roleRepository.findAll()));
+        if (user.getRole() == null) {
+            user.setRole(roleRepository.findOneByName("USER"));
+        }
         userRepository.save(user);
     }
 

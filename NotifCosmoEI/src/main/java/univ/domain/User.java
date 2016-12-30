@@ -3,7 +3,6 @@ package univ.domain;
 import univ.util.UserType;
 
 import javax.persistence.*;
-import java.util.Set;
 
 @Entity
 @Table(name = "user_id")
@@ -11,6 +10,10 @@ public class User {
     private Long id;
     private String mail;
     private String firstName;
+    private String lastName;
+    private String password;
+    private Role role;
+    private UserType type;
 
     public String getMail() {
         return mail;
@@ -36,11 +39,6 @@ public class User {
         this.lastName = lastName;
     }
 
-    private String lastName;
-    private String password;
-    private String passwordConfirm;
-    private Set<Role> roles;
-    private UserType type;
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -67,14 +65,14 @@ public class User {
         this.password = password;
     }
 
-    @ManyToMany
-    @JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
-    public Set<Role> getRoles() {
-        return roles;
+    @ManyToOne
+    @JoinColumn(name="user_role")
+    public Role getRole() {
+        return role;
     }
 
-    public void setRoles(Set<Role> roles) {
-        this.roles = roles;
+    public void setRole(Role role) {
+        this.role = role;
     }
 
     @Override
@@ -85,7 +83,7 @@ public class User {
                 ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
                 ", password='" + password + '\'' +
-                ", roles=" + roles +
+                ", role=" + (role == null ? "null" : role.getName()) +
                 ", type=" + type +
                 '}';
     }
