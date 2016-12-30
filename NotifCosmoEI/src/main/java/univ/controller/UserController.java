@@ -7,16 +7,12 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import univ.domain.User;
-import univ.service.SecurityService;
 import univ.service.UserService;
 
 @Controller
 public class UserController {
     @Autowired
     private UserService userService;
-
-    @Autowired
-    private SecurityService securityService;
 
     @RequestMapping(value = "/registration", method = RequestMethod.GET)
     public String registration(Model model) {
@@ -29,8 +25,6 @@ public class UserController {
 
         System.out.println(userForm);
         userService.save(userForm);
-        securityService.autologin(userForm.getMail(), userForm.getPassword());
-
         return "redirect:/index";
     }
 

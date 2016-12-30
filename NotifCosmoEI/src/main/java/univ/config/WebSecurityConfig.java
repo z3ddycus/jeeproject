@@ -1,4 +1,4 @@
-package univ.auth;
+package univ.config;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,39 +8,48 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import univ.service.UserDetailsServiceImpl;
+
+import javax.sql.DataSource;
+import java.util.List;
 
 @Configuration
 @EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
-    private UserDetailsService userDetailsService = new UserDetailsServiceImpl();
+    @Autowired
+    DataSource dataSource;
 
     @Bean
     public BCryptPasswordEncoder bCryptPasswordEncoder() {
         return new BCryptPasswordEncoder();
     }
 
+    @Autowired
+    public void configAuthentication(AuthenticationManagerBuilder auth) throws Exception {
+
+        auth.jdbcAuthentication().dataSource(dataSource)
+                .usersByUsernameQuery(
+                        "select mail,password, 1 from user_id where mail=?")
+                .authoritiesByUsernameQuery(
+                        "select user_id.mail, role.name from user_id, role where role.id=user_id.user_role and user_id.mail=?");
+    }
+
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .csrf().disable()
-                .authorizeRequests()
-                .antMatchers("/resources/**", "/registration", "**").permitAll()
-                .anyRequest().authenticated()
-                .and()
+                    .authorizeRequests()
+                    .antMatchers("/resources/**", "/registration", "**").permitAll()
+                    .anyRequest().authenticated()
+                    .and()
                 .formLogin()
-                .loginPage("/login")
+                    .loginPage("/login")
+                    .defaultSuccessUrl("/")
+                    .failureUrl("/login?error=true")
                 .permitAll()
                 .and()
                 .logout()
                 .permitAll();
-    }
-
-    @Autowired
-    public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService(userDetailsService).passwordEncoder(bCryptPasswordEncoder());
     }
 }
