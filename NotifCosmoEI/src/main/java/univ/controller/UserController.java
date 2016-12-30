@@ -3,7 +3,6 @@ package univ.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -26,14 +25,11 @@ public class UserController {
     }
 
     @RequestMapping(value = "/registration", method = RequestMethod.POST)
-    public String registration(@ModelAttribute("userForm") User userForm, BindingResult bindingResult, Model model) {
+    public String registration(@ModelAttribute("userForm") User userForm, Model model) {
 
         System.out.println(userForm);
-        if (bindingResult.hasErrors()) {
-            return "registration";
-        }
         userService.save(userForm);
-        securityService.autologin(userForm.getUsername(), userForm.getPassword());
+        securityService.autologin(userForm.getMail(), userForm.getPassword());
 
         return "redirect:/index";
     }

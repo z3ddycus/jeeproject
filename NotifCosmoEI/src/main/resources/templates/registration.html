@@ -9,16 +9,14 @@
 <div class="row" layout:fragment="content">
     <div class="container">
         <div class="row">
-            <form th:action="@{/registration}" method="post">
+            <form th:action="@{/registration}" th:object="${user}" method="post">
                 <div class="row">
-                        <input id="mail" type="text"/>
+                        <input id="mail" type="text" th:field="${user.mail}"/>
                         <label for="mail">Email</label>
                 </div>
                 <div class="row">
-                        <input id="password" type="password"/>
+                        <input id="password" type="password" th:field="${user.password}"/>
                         <label for="password">Password</label>
-                        <input id="passwordConfirm" type="passwordConfirm"/>
-                        <label for="passwordConfirm">Password confirmation</label>
                 </div>
                 <div class="row">
                     <button type="submit"
