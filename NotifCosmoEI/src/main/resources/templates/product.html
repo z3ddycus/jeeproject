@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.w3.org/1999/xhtml"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="layout/default">
+<head lang="fr">
+    <title th:text="'Détail du produit' + ${product.id}">Détail du produit</title>
+</head>
+<body>
+<div class="row" layout:fragment="content">
+    <h1 th:text="${product.id} + '-' + ${product.name}"></h1>
+    <table>
+        <tr>
+            <th>Id</th>
+            <th>Composant</th>
+        </tr>
+        <tr th:each="component,iterStat : ${product.components}">
+            <td th:text="${component.id}">*toussote*</td>
+            <td> <a th:text="${component.name}" th:href="@{/component/{orderId}(orderId=${component.id})}">*toussote*</a></td>
+        </tr>
+    </table>
+</div>
+</body>
+</html>

@@ -1,7 +1,5 @@
 package univ.domain;
 
-import univ.util.UserType;
-
 import javax.persistence.*;
 
 @Entity
@@ -13,7 +11,7 @@ public class User {
     private String lastName;
     private String password;
     private Role role;
-    private UserType type;
+    private Work work;
 
     public String getMail() {
         return mail;
@@ -46,13 +44,6 @@ public class User {
         return id;
     }
 
-    public void setType(UserType type) {
-        this.type = type;
-    }
-    public UserType getType() {
-        return type;
-    }
-
     public void setId(Long id) {
         this.id = id;
     }
@@ -66,13 +57,21 @@ public class User {
     }
 
     @ManyToOne
-    @JoinColumn(name="user_role")
     public Role getRole() {
         return role;
     }
 
     public void setRole(Role role) {
         this.role = role;
+    }
+
+    @ManyToOne
+    public Work getWork() {
+        return work;
+    }
+
+    public void setWork(Work work) {
+        this.work = work;
     }
 
     @Override
@@ -84,7 +83,7 @@ public class User {
                 ", lastName='" + lastName + '\'' +
                 ", password='" + password + '\'' +
                 ", role=" + (role == null ? "null" : role.getName()) +
-                ", type=" + type +
+                ", type=" + work +
                 '}';
     }
 }

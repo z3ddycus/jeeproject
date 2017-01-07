@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.w3.org/1999/xhtml"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="layout/default">
+<head lang="fr">
+    <title>Les produits</title>
+</head>
+<body>
+<div class="row" layout:fragment="content">
+    <table class="highlight">
+        <thead>
+            <th>Id</th>
+            <th>Name</th>
+            <th>Opérations</th>
+            <th></th>
+        </thead>
+        <tbody>
+            <tr th:each="prod,iterStat : ${products}">
+                <td th:text="${prod.id}">*toussote*</td>
+                <td> <a th:text="${prod.name}" th:href="@{/product/{orderId}(orderId=${prod.id})}">*toussote*</a></td>
+                <td> <a th:href="@{/product/{orderId}/edit(orderId=${prod.id})}">Modifier</a></td>
+                <td> <a th:href="@{/product/{orderId}/delete(orderId=${prod.id})}">Supprimer</a></td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>

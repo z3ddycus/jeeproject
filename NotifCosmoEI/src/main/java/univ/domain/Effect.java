@@ -1,9 +1,6 @@
 package univ.domain;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
 import java.util.Date;
 
 @Entity
@@ -12,6 +9,7 @@ public class Effect {
     @Id
     @GeneratedValue
     private long id;
+
     @ManyToOne
     private User user;
     private Date date;
