@@ -6,7 +6,9 @@ import univ.domain.Product;
 import univ.repository.ProductRepository;
 
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class ProductService {
@@ -47,7 +49,13 @@ public class ProductService {
         productRepository.save(p);
         return true;
     }
-
+    public Map<String, Long> getAutocompleteMap() {
+        Map<String, Long> result = new HashMap<>();
+        for (Product p : getAll()) {
+            result.put(p.getName(), p.getId());
+        }
+        return result;
+    }
     public void delete(Product p) {
         productRepository.delete(p);
     }

@@ -24,6 +24,7 @@ public class ProductController {
     @RequestMapping(value="/", method= RequestMethod.GET)
     public String getAll(Model model) {
         model.addAttribute("newProduct", new Product());
+        model.addAttribute("autocompleteValues", productService.getAutocompleteMap());
         model.addAttribute("products", productService.getAll());
         return "allProduct";
     }
