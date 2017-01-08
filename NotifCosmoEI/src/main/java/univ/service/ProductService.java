@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import univ.domain.Product;
 import univ.repository.ProductRepository;
 
+import java.util.Collections;
 import java.util.List;
 
 @Service
@@ -16,7 +17,9 @@ public class ProductService {
     private ComponentService componentService;
 
     public List<Product> getAll() {
-        return productRepository.findAll();
+        List<Product> result = productRepository.findAll();
+        Collections.sort(result);
+        return result;
     }
 
     public Product get(String name) {
@@ -27,13 +30,12 @@ public class ProductService {
         return productRepository.findOne(id);
     }
 
-    public boolean create(Product product) {
+    public Product create(Product product) {
         Product p = productRepository.findByName(product.getName());
         if (p != null) {
-            return false;
+            return p;
         }
-        productRepository.save(product);
-        return true;
+        return productRepository.save(product);
     }
     public boolean update(Product product) {
         Product p = productRepository.findOne(product.getId());

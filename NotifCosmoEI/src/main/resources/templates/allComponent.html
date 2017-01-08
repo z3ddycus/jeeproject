@@ -4,25 +4,69 @@
       layout:decorator="layout/default">
 <head lang="fr">
     <title>Les composants</title>
+    <script>
+        var newComponent = function() {
+            $("#formulaireHidden").show();
+            $("#buttonAdd").hide();
+        }
+    </script>
 </head>
 <body>
 <div class="row" layout:fragment="content">
-    <table class="highlight">
-        <thead>
-        <th>Id</th>
-        <th>Name</th>
-        <th>Opérations</th>
-        <th></th>
-        </thead>
-        <tbody>
-        <tr th:each="prod,iterStat : ${components}">
-            <td th:text="${prod.id}">*toussote*</td>
-            <td> <a th:text="${prod.name}" th:href="@{/component/{orderId}(orderId=${prod.id})}">*toussote*</a></td>
-            <td> <a th:href="@{/component/{orderId}/edit(orderId=${prod.id})}">Modifier</a></td>
-            <td> <a th:href="@{/component/{orderId}/delete(orderId=${prod.id})}">Supprimer</a></td>
-        </tr>
-        </tbody>
-    </table>
+    <nav>
+        <div class="nav-wrapper red lighten-1">
+            <div class="container">
+                <a>Liste des composants</a>
+            </div>
+        </div>
+    </nav>
+
+
+    <div class = "container">
+        <div class="col s12">
+            <table class="bordered">
+                <thead>
+                    <th class="s8">Composant</th>
+                    <th class="s4">Opérations</th>
+                    <th></th>
+                </thead>
+                <tbody>
+                    <tr th:each="prod,iterStat : ${components}">
+                        <td> <a th:text="${prod.name}" th:href="@{/component/{orderId}(orderId=${prod.id})}">*toussote*</a></td>
+                        <td> <a th:href="@{/component/{orderId}/edit(orderId=${prod.id})}">Modifier</a></td>
+                        <td> <a th:href="@{/component/{orderId}/delete(orderId=${prod.id})}">Supprimer</a></td>
+                    </tr>
+                </tbody>
+            </table>
+            <a class="waves-effect waves-light btn red" id="buttonAdd" onclick="newComponent()">
+                <i class="material-icons">add</i>
+                Ajouter un composant
+            </a>
+
+            <form id="formulaireHidden" hidden="hidden" th:action="@{/component/create}" th:object="${newComponent}" method="post" >
+                <div class="row">
+                    <div class="input-field col s5">
+                        <label for="name">Nom du composant</label>
+                        <input id="name" type="text" th:field="*{name}" required="required"/>
+                    </div>
+
+                    <div class="input-field col s4">
+                        <select id="parent" type="text" th:field="*{parent}">
+                            <option th:value="${null}" selected="selected">Sans parent</option>
+                            <option th:each="comp : ${components}" th:value="${comp.id}" th:text="${comp.name}"></option>
+                        </select>
+                    </div>
+                    <div class="input-field col s3">
+                        <button class="btn waves-effect waves-light red" type="submit">
+                            Ajouter un composant
+                        </button>
+                    </div>
+                </div>
+            </form>
+
+
+        </div>
+    </div>
 </div>
 </body>
 </html>

@@ -38,6 +38,10 @@ public class UserService {
 
     }
 
+    public User get(long id) {
+        return userRepository.findOne(id);
+    }
+
     public User findByMail(String mail) {
         return userRepository.findByMail(mail);
     }

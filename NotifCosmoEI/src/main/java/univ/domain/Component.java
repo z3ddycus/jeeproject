@@ -2,42 +2,48 @@ package univ.domain;
 
 
 import javax.persistence.*;
-import java.util.List;
+import java.util.*;
 
 @Entity
-public class Component {
+public class Component implements Comparable<Component>{
 
     // ATTRIBUTES
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
     private long id;
 
     private String name;
 
-    @OneToMany(cascade = {CascadeType.ALL})
-    private List<Effect> effects;
+    @OneToMany(cascade = {CascadeType.ALL}, fetch = FetchType.EAGER)
+    private Set<Effect> effects;
 
-    @ManyToMany(mappedBy="components")
-    private List<Product> products;
+    @ManyToMany(mappedBy="components", fetch = FetchType.EAGER)
+    private Set<Product> products;
 
-    @OneToOne
+    @OneToMany(mappedBy="parent", cascade = {CascadeType.ALL}, fetch = FetchType.EAGER)
+    private Set<Component> children;
+
+    @ManyToOne(fetch = FetchType.EAGER)
     private Component parent;
 
     // CONSTRUCTOR
 
     public Component() {
-        this.parent = null;
+        children = new TreeSet<>();
+        products = new TreeSet<>();
+        effects = new TreeSet<>();
     }
 
     public Component(String name, Component parent) {
-        this.name = name;
+        this(name);
         this.parent = parent;
     }
     public Component(String name) {
+        this();
         this.name = name;
-        this.parent = null;
     }
+
 
     // GETTER
 
@@ -65,19 +71,60 @@ public class Component {
         this.parent = parent;
     }
 
-    public List<Effect> getEffects() {
+    public Set<Effect> getEffects() {
         return effects;
     }
 
-    public void setEffects(List<Effect> effects) {
-        this.effects = effects;
+    public void setEffects(Collection<Effect> effects) {
+        this.effects.clear();
+        this.effects.addAll(effects);
     }
 
-    public List<Product> getProducts() {
+    public Set<Product> getProducts() {
         return products;
     }
 
-    public void setProducts(List<Product> products) {
-        this.products = products;
+    public void setProducts(Collection<Product> products) {
+        this.products.clear();
+        this.products.addAll(products);
+    }
+
+    public List<Component> getInheritanceList() {
+        LinkedList<Component> queue = new LinkedList<>();
+        Component current = this;
+        while(current != null) {
+            queue.addFirst(current);
+            current = current.parent;
+        }
+        return queue;
+    }
+
+    public Set<Component> getChildren() {
+        return children;
+    }
+    public Set<Component> getInheritanceChildren() {
+        Set<Component> children = new HashSet<>();
+        for (Component c : this.children) {
+            children.add(c);
+            children.addAll(c.getChildren());
+        }
+        return children;
+    }
+
+    public Set<Effect> getInheritanceEffects() {
+        Set<Effect> result = new TreeSet<>();
+        for (Component comp : getInheritanceList()) {
+            result.addAll(comp.getEffects());
+        }
+        return result;
+    }
+
+    public void setChildren(Set<Component> children) {
+        this.children = children;
+    }
+
+    @Override
+    public int compareTo(Component o) {
+        return name.compareTo(o.getName());
     }
 }

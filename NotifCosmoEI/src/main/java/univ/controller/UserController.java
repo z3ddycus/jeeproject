@@ -1,9 +1,12 @@
 package univ.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import univ.domain.User;
@@ -28,19 +31,38 @@ public class UserController {
     @RequestMapping(value = "/registration", method = RequestMethod.POST)
     public String registration(@ModelAttribute("userForm") User userForm, Model model) {
         // TODO: 07/01/17 vérifier la validité du user si non renvoit vers registration
-        System.out.println(userForm);
         userService.save(userForm);
         return "redirect:/";
     }
 
     @RequestMapping(value = "/login", method = RequestMethod.GET)
     public String login(Model model, String error, String logout) {
-        if (error != null)
-            model.addAttribute("error", "Your username and password is invalid.");
-
-        if (logout != null)
-            model.addAttribute("message", "You have been logged out successfully.");
-
         return "login";
+    }
+
+    @RequestMapping(value="/user/{ID}", method= RequestMethod.GET)
+    public String get(Model model, @PathVariable(value="ID") String id) {
+        try {
+            long longId = Long.parseLong(id);
+            User user = userService.get(longId);
+            if (user == null) {
+                model.addAttribute("message", "L'utilisateur n'existe pas.");
+                return "redirect:/error";
+            }
+            model.addAttribute("user", user);
+            return "profil";
+        } catch (Exception e) {
+            model.addAttribute("message", "L'utilisateur n'existe pas.");
+            return "redirect:/error";
+        }
+    }
+
+    @RequestMapping(value="/profil", method=RequestMethod.GET)
+    public String profil(Model model) {
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        User user = userService.findByMail(((UserDetails)principal).getUsername());
+        model.addAttribute("user", user);
+        return "profil";
+
     }
 }

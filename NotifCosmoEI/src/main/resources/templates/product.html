@@ -7,17 +7,45 @@
 </head>
 <body>
 <div class="row" layout:fragment="content">
-    <h1 th:text="${product.id} + '-' + ${product.name}"></h1>
-    <table>
-        <tr>
-            <th>Id</th>
-            <th>Composant</th>
-        </tr>
-        <tr th:each="component,iterStat : ${product.components}">
-            <td th:text="${component.id}">*toussote*</td>
-            <td> <a th:text="${component.name}" th:href="@{/component/{orderId}(orderId=${component.id})}">*toussote*</a></td>
-        </tr>
-    </table>
+
+    <nav>
+        <div class="nav-wrapper red lighten-1">
+            <div class="container">
+                <a th:text="${product.name}">Produit</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class = "col s5">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Composants</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="component : ${product.components}">
+                        <td> <a th:text="${component.name}" th:href="@{/component/{orderId}(orderId=${component.id})}">*toussote*</a></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class = "col s5 offset-s2">
+            <table>
+                <thead>
+                <tr>
+                    <th>A pour effet</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="effect : ${effects}">
+                    <td> <a th:text="${effect.description}">*toussote*</a></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
 </div>
 </body>
 </html>

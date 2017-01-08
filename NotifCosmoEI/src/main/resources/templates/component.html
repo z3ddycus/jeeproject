@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.w3.org/1999/xhtml"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="layout/default">
+<head lang="fr">
+    <title>Composant</title>
+</head>
+<body>
+<div class="row" layout:fragment="content">
+    <nav>
+        <div class="nav-wrapper red lighten-1">
+            <div class="container">
+                <a th:each="element:${inheritance}" th:text="${element.name}" th:href="@{/component/{orderId}(orderId=${element.id})}" class="breadcrumb">First</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class = "container">
+        <div class = "row">
+            <div class = "col s5">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Est utilisé dans</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="product : ${products}">
+                            <td> <a th:text="${product.name}" th:href="@{/product/{orderId}(orderId=${product.id})}">*toussote*</a></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class = "col s5 offset-s2">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>A pour effet</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="effect : ${effects}">
+                            <td> <a th:text="${effect.description}">*toussote*</a></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

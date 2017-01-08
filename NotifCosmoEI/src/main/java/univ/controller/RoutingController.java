@@ -20,4 +20,9 @@ public class RoutingController{
         model.addAttribute("user", (user == null) ? "tout le monde" : user.getMail());
         return "index";
     }
+
+    @GetMapping("/error")
+    public String error(Model model) {
+        return "error";
+    }
 }

@@ -30,9 +30,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
         auth.jdbcAuthentication().dataSource(dataSource)
                 .usersByUsernameQuery(
-                        "select mail,password, 1 from user_id where mail=?")
+                        "select mail,password, role_id from user_id where mail=?")
                 .authoritiesByUsernameQuery(
-                        "select user_id.mail, role.name from user_id, role where role.id=user_id.user_role and user_id.mail=?");
+                        "select user_id.mail, role.name from user_id, role where role.id=user_id.role_id and user_id.mail=?");
     }
 
     @Override

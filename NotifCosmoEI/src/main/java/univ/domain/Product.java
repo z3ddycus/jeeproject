@@ -1,33 +1,36 @@
 package univ.domain;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Collection;
+import java.util.Set;
+import java.util.TreeSet;
 
 @Entity
-public class Product {
+public class Product implements Comparable<Product> {
 
     // ATTRIBUTES
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
     private long id;
 
     private String name;
 
     @ManyToMany(cascade = {CascadeType.PERSIST})
-    private List<Component> components;
+    private Set<Component> components;
 
     // CONSTRUCTOR
 
-    public Product(String name, List<Component> components) {
-        this.name = name;
-        this.components = new ArrayList<>(components);
+    public Product(String name, Collection<Component> components) {
+        this(name);
+        this.components.addAll(components);
     }
     public Product(String name) {
+        this();
         this.name = name;
     }
     public Product() {
+        this.components = new TreeSet<>();
     }
 
     public long getId() {
@@ -46,11 +49,23 @@ public class Product {
         this.name = name;
     }
 
-    public List<Component> getComponents() {
+    public Set<Component> getComponents() {
         return components;
     }
 
-    public void setComponents(List<Component> components) {
-        this.components = components;
+    public void setComponents(Collection<Component> components) {
+        this.components.clear();
+        this.components.addAll(components);
+    }
+    public Set<Effect> getEffects() {
+        Set result = new TreeSet();
+        for (Component c : components) {
+            result.addAll(c.getEffects());
+        }
+        return result;
+    }
+    @Override
+    public int compareTo(Product o) {
+        return name.compareTo(o.getName());
     }
 }

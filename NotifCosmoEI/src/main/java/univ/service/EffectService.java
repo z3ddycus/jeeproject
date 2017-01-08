@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import univ.domain.Effect;
 import univ.repository.EffectRepository;
 
+import java.util.Collections;
 import java.util.List;
 
 
@@ -18,7 +19,9 @@ public class EffectService {
         return effectRepository.findOne(id);
     }
     List<Effect> getAll() {
-        return effectRepository.findAll();
+        List<Effect> result = effectRepository.findAll();
+        Collections.sort(result);
+        return result;
     }
     void save(Effect e) {
         effectRepository.save(e);

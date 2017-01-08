@@ -4,25 +4,56 @@
       layout:decorator="layout/default">
 <head lang="fr">
     <title>Les produits</title>
+    <script>
+        var newProduct = function() {
+            $("#formulaireHidden").show();
+            $("#buttonAdd").hide();
+        }
+    </script>
 </head>
 <body>
 <div class="row" layout:fragment="content">
-    <table class="highlight">
-        <thead>
-            <th>Id</th>
-            <th>Name</th>
-            <th>Opérations</th>
-            <th></th>
-        </thead>
-        <tbody>
-            <tr th:each="prod,iterStat : ${products}">
-                <td th:text="${prod.id}">*toussote*</td>
-                <td> <a th:text="${prod.name}" th:href="@{/product/{orderId}(orderId=${prod.id})}">*toussote*</a></td>
-                <td> <a th:href="@{/product/{orderId}/edit(orderId=${prod.id})}">Modifier</a></td>
-                <td> <a th:href="@{/product/{orderId}/delete(orderId=${prod.id})}">Supprimer</a></td>
-            </tr>
-        </tbody>
-    </table>
+    <nav>
+        <div class="nav-wrapper red lighten-1">
+            <div class="container">
+                <a class="offset-s1">Liste des produits</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container">
+        <table class="bordered">
+            <thead>
+                <th>Produit</th>
+                <th>Opérations</th>
+                <th></th>
+            </thead>
+            <tbody>
+                <tr th:each="prod,iterStat : ${products}">
+                    <td> <a th:text="${prod.name}" th:href="@{/product/{orderId}(orderId=${prod.id})}">*toussote*</a></td>
+                    <td> <a th:href="@{/product/{orderId}/edit(orderId=${prod.id})}">Modifier</a></td>
+                    <td> <a th:href="@{/product/{orderId}/delete(orderId=${prod.id})}">Supprimer</a></td>
+                </tr>
+            </tbody>
+        </table>
+        <form id="formulaireHidden" hidden="hidden" th:action="@{/product/create}" th:object="${newProduct}" method="post" >
+            <div class="row">
+                <div class="input-field col s8">
+                    <label for="name">Nom du produit</label>
+                    <input id="name" type="text" th:field="*{name}" required="required"/>
+                </div>
+                <div class="input-field col s4">
+                    <button class="btn waves-effect waves-light red" type="submit">
+                        Ajouter un produit
+                    </button>
+                </div>
+            </div>
+        </form>
+        <a class="waves-effect waves-light btn red" id="buttonAdd" onclick="newProduct()">
+            <i class="material-icons">add</i>
+            Ajouter un produit
+        </a>
+    </div>
 </div>
 </body>
 </html>

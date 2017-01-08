@@ -4,17 +4,20 @@ import javax.persistence.*;
 import java.util.Date;
 
 @Entity
-public class Effect {
+public class Effect implements Comparable<Effect> {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
     private long id;
 
     @ManyToOne
     private User user;
     private Date date;
     private String description;
-
+    public Effect() {}
+    public Effect(String description) {
+        this.description = description;
+    }
     public long getId() {
         return id;
     }
@@ -45,5 +48,10 @@ public class Effect {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    @Override
+    public int compareTo(Effect o) {
+        return description.compareTo(o.getDescription());
     }
 }

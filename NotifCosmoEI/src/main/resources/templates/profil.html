@@ -3,19 +3,24 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorator="layout/default">
 <head lang="fr">
-    <title>Accueil</title>
+    <title>Profil</title>
 </head>
 <body>
 <div class="row" layout:fragment="content">
     <nav>
         <div class="nav-wrapper red lighten-1">
             <div class="container">
-                <a class="offset-s1">Accueil</a>
+                <a class="offset-s1">Profil</a>
             </div>
         </div>
     </nav>
+
     <div class="container">
-        <h1 class="indigo-text center" th:text="${user}">Ca fonctionne ou pas?</h1>
+        <p th:text="'Id : ' + ${user.id}"></p>
+        <p th:text="'Nom : ' + ${user.lastName}"></p>
+        <p th:text="'Prénom : ' + ${user.firstName}"></p>
+        <p th:text="'Qualité : ' + ${user.work}"></p>
+        <p th:text="'Mail : ' + ${user.mail}"></p>
     </div>
 </div>
 </body>

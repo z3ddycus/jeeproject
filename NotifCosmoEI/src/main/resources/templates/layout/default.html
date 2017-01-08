@@ -10,34 +10,42 @@ scale=1, maximum-scale=1.0, user-scalable=no"/>
     <title>Default title</title>
     <link href="/webjars/materializecss/0.97.7/css/materialize.css"
           type="text/css" rel="stylesheet" media="screen,projection"/>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
 </head>
 <body>
-<nav>
-    <div class="nav-wrapper">
-        <a href="/index" class="left brand-logo">Projet Jee</a>
-        <ul class="right hide-on-med-and-down">
-            <li><a th:href="@{/product/}">Produits</a></li>
-            <li><a th:href="@{/component/}">Composants</a></li>
-            <li><a th:href="@{/report/}">Alertes</a></li>
-            <span sec:authorize="isAuthenticated()">
-                <li><a href="/user/">Profil</a></li>
-                <li><a href="/logout">Logout</a></li>
-            </span>
-            <span sec:authorize="!isAuthenticated()">
-                <li><a href="/registration">Signup</a></li>
-                <li><a href="/login">Login</a></li>
-            </span>
-        </ul>
-    </div>
-</nav>
-<section layout:fragment="content">
-</section>
-<script src="/webjars/jquery/3.1.1/jquery.js"></script>
-<script src="/webjars/materializecss/0.97.7/js/materialize.js"></script>
-<script>
-    $(document).ready(function() {
-        $('select').material_select();
-    });
-</script>
+    <nav>
+        <div class="nav-wrapper red">
+            <div class="container">
+                <div class ="col left">
+                    <a href="/" class="brand-logo"> Projet Jee</a>
+                </div>
+                <div class ="col">
+                    <ul class="hide-on-med-and-down right">
+                        <li><a th:href="@{/product/}">Produits</a></li>
+                        <li><a th:href="@{/component/}">Composants</a></li>
+                        <li><a th:href="@{/report/}">Alertes</a></li>
+                        <span sec:authorize="isAuthenticated()">
+                            <li><a href="/profil/">Profil</a></li>
+                            <li><a href="/logout">Logout</a></li>
+                        </span>
+                        <span sec:authorize="!isAuthenticated()">
+                            <li><a href="/registration">Signup</a></li>
+                            <li><a href="/login">Login</a></li>
+                        </span>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </nav>
+    <section layout:fragment="content">
+    </section>
+    <script src="/webjars/jquery/3.1.1/jquery.js"></script>
+    <script src="/webjars/materializecss/0.97.7/js/materialize.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('select').material_select();
+            Materialize.updateTextFields();
+        });
+    </script>
 </body>
 </html>

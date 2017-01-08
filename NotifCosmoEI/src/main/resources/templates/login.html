@@ -7,29 +7,38 @@
     </head>
     <body>
         <div class="row" layout:fragment="content">
-            <form th:action="@{login}" class="col s12 offset-s1" method="post">
-                <div class="row">
-                    <div class="input-field col s12">
-                        <label for="username">Email</label>
-                        <input id="username" type="email" class="validate" name="username"/>
+            <nav>
+                <div class="nav-wrapper red lighten-1">
+                    <div class="container">
+                        <a class="offset-s1">Se connecter</a>
                     </div>
                 </div>
-                <div class="row">
-                    <div class="input-field col s12">
-                        <label for="password">Email</label>
-                        <input id="password" type="password" name="password" class="validate"/>
+            </nav>
+
+            <div class="container">
+                <form th:action="@{/login}" class="col s12" method="post">
+                    <div class="row">
+                        <div class="input-field col s12">
+                            <label for="username">Email</label>
+                            <input id="username" type="email" class="validate" name="username"/>
+                        </div>
                     </div>
-                </div>
-                <div class="row s12 offset-s1">
-                    <button class="btn waves-effect waves-light" type="submit"
-                            name="save">Se connecter
-                    </button>
-                </div>
-            </form>
-            <div class="row">
-                <div class="col s6 offset-s1">
-                    <a class="waves-effect waves-light btn" href="/registration"> S'inscrire </a>
-                </div>
+                    <div class="row">
+                        <div class="input-field col s12">
+                            <label for="password">Password</label>
+                            <input id="password" type="password" name="password" class="validate"/>
+                        </div>
+                    </div>
+                    <div class="row ">
+                        <div class ="col s3 offset-s1">
+                            <button class="btn waves-effect waves-light red" type="submit"
+                                    name="save">Se connecter</button>
+                        </div>
+                        <div class ="col s3 offset-s1">
+                            <a class="btn waves-effect waves-light red" href="/registration"> S'inscrire </a>
+                        </div>
+                    </div>
+                </form>
             </div>
         </div>
     </body>
