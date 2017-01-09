@@ -1,10 +1,11 @@
 package univ.domain;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Date;
 
 @Entity
-public class Effect implements Comparable<Effect> {
+public class Effect implements Comparable<Effect>, Serializable {
 
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)

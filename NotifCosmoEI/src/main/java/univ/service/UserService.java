@@ -9,6 +9,10 @@ import univ.domain.User;
 import univ.repository.RoleRepository;
 import univ.repository.UserRepository;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 @Service
 public class UserService {
 
@@ -37,7 +41,17 @@ public class UserService {
         }
 
     }
+    public List<User> getAll() {
+        return userRepository.findAll();
+    }
 
+    public Map<String, Long> getAutocompleteValues() {
+        Map<String, Long> result = new HashMap<>();
+        for (User user : getAll()) {
+            result.put(user.getFirstName() + " " + user.getLastName(), user.getId());
+        }
+        return result;
+    }
     public User get(long id) {
         return userRepository.findOne(id);
     }

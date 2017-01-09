@@ -16,11 +16,8 @@
     </nav>
 
     <div class="container">
-        <p th:text="'Id : ' + ${user.id}"></p>
-        <p th:text="'Nom : ' + ${user.lastName}"></p>
-        <p th:text="'Prénom : ' + ${user.firstName}"></p>
-        <p th:text="'Qualité : ' + ${user.work}"></p>
-        <p th:text="'Mail : ' + ${user.mail}"></p>
+        <p class="titleUser" th:text="${user.firstName} + ' ' + ${user.lastName}"></p>
+        <p class="workUser" th:text="${user.work}"></p>
     </div>
 </div>
 </body>

@@ -2,10 +2,11 @@ package univ.domain;
 
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.*;
 
 @Entity
-public class Component implements Comparable<Component>{
+public class Component implements Comparable<Component>, Serializable{
 
     // ATTRIBUTES
 
@@ -15,16 +16,16 @@ public class Component implements Comparable<Component>{
 
     private String name;
 
-    @OneToMany(cascade = {CascadeType.ALL}, fetch = FetchType.EAGER)
+    @OneToMany(cascade = {CascadeType.ALL})
     private Set<Effect> effects;
 
-    @ManyToMany(mappedBy="components", fetch = FetchType.EAGER)
+    @ManyToMany(mappedBy="components")
     private Set<Product> products;
 
-    @OneToMany(mappedBy="parent", cascade = {CascadeType.ALL}, fetch = FetchType.EAGER)
+    @OneToMany(mappedBy="parent", cascade = {CascadeType.ALL})
     private Set<Component> children;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne
     private Component parent;
 
     // CONSTRUCTOR

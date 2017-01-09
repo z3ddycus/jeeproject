@@ -1,6 +1,6 @@
 INSERT INTO role
 VALUES
-  (0, 'ADMIN'),
+ (0, 'ADMIN'),
   (1, 'USER');
 
 INSERT INTO work

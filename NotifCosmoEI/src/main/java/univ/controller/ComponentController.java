@@ -27,8 +27,10 @@ public class ComponentController {
         Component c = componentService.create(compForm);
         return "redirect:/component/" + c.getId();
     }
+
     @RequestMapping(value="/", method= RequestMethod.GET)
     public String getAll(Model model) {
+        model.addAttribute("autocompleteValues", componentService.getAutocompleteValues());
         model.addAttribute("newComponent", new Component());
         model.addAttribute("components", componentService.getAll());
         return "allComponent";

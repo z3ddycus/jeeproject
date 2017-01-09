@@ -57,6 +57,13 @@ public class UserController {
         }
     }
 
+    @RequestMapping(value= "/users", method = RequestMethod.GET)
+    public String getAll(Model model) {
+        model.addAttribute("autocompleteValues", userService.getAutocompleteValues());
+        model.addAttribute("users", userService.getAll());
+        return "allUser";
+    }
+
     @RequestMapping(value="/profil", method=RequestMethod.GET)
     public String profil(Model model) {
         Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();

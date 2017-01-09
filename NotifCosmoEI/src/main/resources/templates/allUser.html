@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.w3.org/1999/xhtml"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" xmlns:sec="http://www.w3.org/1999/xhtml"
+      layout:decorator="layout/default">
+<head lang="fr">
+    <title>Les utilisateurs</title>
+</head>
+<body>
+<div class="row" layout:fragment="content">
+    <nav>
+        <div class="nav-wrapper red lighten-1">
+            <div class="container">
+                <a class="offset-s1">Liste des utilisateurs</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container">
+
+        <div class="row">
+            <div class="col s12">
+                <div class="row">
+                    <div class="input-field col s12">
+                        <i class="material-icons prefix">search</i>
+                        <input type="text" id="autocomplete-input" class="autocomplete" onkeyup="search(event)"/>
+                        <label for="autocomplete-input">Recherche d'utilisateur</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <table class="bordered">
+            <thead>
+            <th>Utilisateur</th>
+            <th>Qualité</th>
+            <th>Role</th>
+            <th sec:authorize="hasRole('ROLE_ADMIN')">Opérations</th>
+            </thead>
+            <tbody>
+            <tr th:each="user : ${users}">
+                <td> <a th:text="${user.firstName} + ' ' + ${user.lastName}" th:href="@{/user/{orderId}(orderId=${user.id})}">*toussote*</a></td>
+                <td th:text="${user.work}"> </td>
+                <td th:text="${user.role.name}"></td>
+                <td sec:authorize="hasRole('ROLE_ADMIN')"> <a th:href="@{/user/{orderId}/delete(orderId=${user.id})}">Supprimer</a></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <script type="text/javascript" th:inline="javascript">
+
+        /*<![CDATA[*/
+        var textToValue = /*[[${autocompleteValues}]]*/ 'User Name';
+        /*]]>*/
+        var autocompleteValues = {};
+
+        for (var key in textToValue) {
+            autocompleteValues[key] = null;
+        }
+
+        $(document).ready(function () {$("#autocomplete-input").autocomplete({data: autocompleteValues})});
+
+        var search = function(event) {
+            if (event.keyCode == 13) {
+                var text = $("#autocomplete-input").val();
+                if (textToValue[text] != undefined) {
+                    window.location.replace("/user/" + textToValue[text]);
+                }
+            }
+        }
+    </script>
+</div>
+</body>
+</html>

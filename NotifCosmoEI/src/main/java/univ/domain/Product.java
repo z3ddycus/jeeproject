@@ -1,12 +1,13 @@
 package univ.domain;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Collection;
 import java.util.Set;
 import java.util.TreeSet;
 
 @Entity
-public class Product implements Comparable<Product> {
+public class Product implements Comparable<Product>, Serializable {
 
     // ATTRIBUTES
 
