@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.w3.org/1999/xhtml"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" xmlns:sec="http://www.w3.org/1999/xhtml"
       layout:decorator="layout/default">
 <head lang="fr">
     <title>Les composants</title>
@@ -31,18 +31,26 @@
             </div>
         </div>
 
+
         <div class="col s12">
             <table class="bordered">
                 <thead>
-                    <th class="s8">Composant</th>
-                    <th class="s4">Opérations</th>
-                    <th></th>
+                    <th>Composant</th>
+                    <th sec:authorize="isAuthenticated()"></th>
                 </thead>
                 <tbody>
                     <tr th:each="prod,iterStat : ${components}">
-                        <td> <a th:text="${prod.name}" th:href="@{/component/{orderId}(orderId=${prod.id})}">*toussote*</a></td>
-                        <td> <a th:href="@{/component/{orderId}/edit(orderId=${prod.id})}">Modifier</a></td>
-                        <td> <a th:href="@{/component/{orderId}/delete(orderId=${prod.id})}">Supprimer</a></td>
+                        <td>
+                            <a th:text="${prod.name}" th:href="@{/component/{orderId}(orderId=${prod.id})}">*toussote*</a>
+                        </td>
+                        <td sec:authorize="isAuthenticated()" class="right" >
+                            <a class="btn-flat" th:href="@{/component/{orderId}/edit(orderId=${prod.id})}">
+                                <i class="material-icons">mode_edit</i>
+                            </a>
+                            <a class="btn-flat" th:href="@{/component/{orderId}/delete(orderId=${prod.id})}">
+                                <i class="material-icons">delete</i>
+                            </a>
+                        </td>
                     </tr>
                 </tbody>
             </table>
@@ -50,6 +58,8 @@
                 <i class="material-icons">add</i>
                 Ajouter un composant
             </a>
+
+
 
             <form id="formulaireHidden" hidden="hidden" th:action="@{/component/create}" th:object="${newComponent}" method="post" >
                 <div class="row">

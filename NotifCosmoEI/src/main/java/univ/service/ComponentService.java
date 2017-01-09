@@ -38,6 +38,9 @@ public class ComponentService {
     public void delete(Component e) {
         componentRepository.delete(e);
     }
+    public void delete(long e) {
+        componentRepository.delete(e);
+    }
 
     public Component create(Component product) {
         Component p = componentRepository.findByName(product.getName());

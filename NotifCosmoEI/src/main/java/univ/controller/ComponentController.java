@@ -28,6 +28,7 @@ public class ComponentController {
         return "redirect:/component/" + c.getId();
     }
 
+
     @RequestMapping(value="/", method= RequestMethod.GET)
     public String getAll(Model model) {
         model.addAttribute("autocompleteValues", componentService.getAutocompleteValues());
@@ -35,6 +36,7 @@ public class ComponentController {
         model.addAttribute("components", componentService.getAll());
         return "allComponent";
     }
+
 
     @RequestMapping(value="/{ID}", method= RequestMethod.GET)
     public String get(Model model, @PathVariable(value="ID") String id) {
@@ -59,5 +61,16 @@ public class ComponentController {
         } catch (Exception e) {
             return "redirect:/component/";
         }
+    }
+
+
+    @RequestMapping(value="/{ID}/delete", method= RequestMethod.GET)
+    public String delete(Model model, @PathVariable(value="ID") String id) {
+        try {
+            long longId = Long.parseLong(id);
+            componentService.delete(longId);
+        } catch (Exception ignored) {
+        }
+        return "redirect:/component/";
     }
 }

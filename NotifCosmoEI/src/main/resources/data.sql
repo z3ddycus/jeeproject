@@ -10,6 +10,3 @@ VALUES
   (2,'Association de consommateurs', 2.5),
   (3, 'Laboratoire', 4.0),
   (4, 'Utilisateur simple', 1.0);
-
-INSERT INTO user_id
-VALUES(0, 'Lina', 'Soualmia', 'root@root.fr', 'admin', 0, 0);

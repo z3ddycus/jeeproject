@@ -34,14 +34,26 @@
             <th>Utilisateur</th>
             <th>Qualité</th>
             <th>Role</th>
-            <th sec:authorize="hasRole('ROLE_ADMIN')">Opérations</th>
+            <th sec:authorize="isAuthenticated()"></th>
             </thead>
             <tbody>
             <tr th:each="user : ${users}">
-                <td> <a th:text="${user.firstName} + ' ' + ${user.lastName}" th:href="@{/user/{orderId}(orderId=${user.id})}">*toussote*</a></td>
+                <td>
+                    <a th:text="${user.firstName} + ' ' + ${user.lastName}" th:href="@{/user/{orderId}(orderId=${user.id})}">*toussote*</a>
+                </td>
                 <td th:text="${user.work}"> </td>
                 <td th:text="${user.role.name}"></td>
-                <td sec:authorize="hasRole('ROLE_ADMIN')"> <a th:href="@{/user/{orderId}/delete(orderId=${user.id})}">Supprimer</a></td>
+                <td class="right" sec:authorize="isAuthenticated()" th:switch="${user.role.name}">
+                    <a th:case="'ADMIN'" class="btn-flat" th:href="@{/user/{orderId}/decreaseRole(orderId=${user.id})}">
+                        <i class="material-icons">thumb_down</i>
+                    </a>
+                    <a th:case="'USER'" class="btn-flat" th:href="@{/user/{orderId}/increaseRole(orderId=${user.id})}">
+                        <i class="material-icons">thumb_up</i>
+                    </a>
+                    <a class="btn-flat" th:href="@{/user/{orderId}/delete(orderId=${user.id})}">
+                        <i class="material-icons">delete</i>
+                    </a>
+                </td>
             </tr>
             </tbody>
         </table>
