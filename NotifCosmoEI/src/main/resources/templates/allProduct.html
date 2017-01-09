@@ -29,11 +29,10 @@
             </div>
         </div>
 
-
         <table class="bordered">
             <thead>
                 <th>Produit</th>
-                <th sec:authorize="isAuthenticated()">Opérations</th>
+                <th sec:authorize="isAuthenticated()"></th>
             </thead>
             <tbody>
                 <tr th:each="prod,iterStat : ${products}">
