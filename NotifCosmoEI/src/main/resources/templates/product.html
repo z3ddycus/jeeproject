@@ -30,6 +30,21 @@
                     </tr>
                 </tbody>
             </table>
+            <div class="row" id="AddComponentHidden" hidden="hidden">
+                <div class="input-field col s12">
+                    <select id="componentAddSelect" type="text">
+                        <option th:each="comp : ${components}" th:value="${comp.id}" th:text="${comp.name}"></option>
+                    </select>
+                </div>
+                <a class="waves-effect waves-light btn red" onclick="addComponent()">
+                    <i class="material-icons">add</i>
+                    Ajouter un composant
+                </a>
+            </div>
+            <a class="waves-effect waves-light btn red" id="buttonAdd" onclick="$('#buttonAdd').hide(); $('#AddComponentHidden').show();">
+                <i class="material-icons">add</i>
+                Ajouter un composant
+            </a>
         </div>
         <div class = "col s5 offset-s2">
             <table>
@@ -40,12 +55,32 @@
                 </thead>
                 <tbody>
                 <tr th:each="effect : ${effects}">
-                    <td> <a th:text="${effect.description}">*toussote*</a></td>
+                    <td th:text="${effect.description}">*toussote*</td>
                 </tr>
                 </tbody>
             </table>
         </div>
     </div>
+    <script th:inline="javascript">
+
+        /*[+
+            var productId   = [[${product.id}]];
+         +]*/
+
+        console.log("local : " + productId);
+        function addComponent() {
+            window.location.replace("/product/" + productId + "/addComponent/" + $("#componentAddSelect").val());
+        }
+
+        $(document).ready(function () {
+            console.log("local : " + productId);
+            var autocompleteValues = {};
+            for (var key in textToValue) {
+                autocompleteValues[key] = null;
+            }
+            $("#autocompleteComponent").autocomplete({data: autocompleteValues})
+        });
+    </script>
 </div>
 </body>
 </html>

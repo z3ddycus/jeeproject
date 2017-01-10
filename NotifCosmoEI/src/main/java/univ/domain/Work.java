@@ -1,18 +1,16 @@
 package univ.domain;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
 public class Work {
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
+    @Id
     private Long id;
+    @Column(unique=true)
     private String name;
     private float weight;
 
-    @Id
-    @GeneratedValue(strategy=GenerationType.IDENTITY)
     public Long getId() {
         return id;
     }

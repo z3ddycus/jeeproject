@@ -11,25 +11,29 @@ public class Component implements Comparable<Component>, Serializable{
     // ATTRIBUTES
 
 
-
-    @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
+    @Id
     private long id;
     private String name;
-    @OneToMany(cascade = {CascadeType.ALL})
+
+    @OneToMany(mappedBy="component", cascade = {CascadeType.REFRESH, CascadeType.MERGE, CascadeType.DETACH})
     private Set<Effect> effects;
-    @ManyToMany(mappedBy="components", cascade = {CascadeType.ALL})
+    @ManyToMany(mappedBy="components", cascade = {CascadeType.REFRESH, CascadeType.MERGE, CascadeType.DETACH})
     private Set<Product> products;
-    @OneToMany(mappedBy="parent", cascade = {CascadeType.ALL})
+    @OneToMany(mappedBy="parent", cascade = {CascadeType.REMOVE})
     private Set<Component> children;
+
     @ManyToOne
     private Component parent;
 
+    // PREACTION
+
     @PreRemove
     private void deletingEntity() {
-
+        for (Product p : products) {
+            p.getComponents().remove(this);
+        }
     }
-
 
     // CONSTRUCTOR
 

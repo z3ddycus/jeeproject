@@ -4,8 +4,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import univ.domain.Component;
-import univ.domain.Effect;
 import univ.domain.Product;
+import univ.service.ComponentService;
 import univ.service.ProductService;
 
 import java.util.LinkedList;
@@ -16,52 +16,20 @@ import java.util.List;
 public class TestController {
     @Autowired
     private ProductService productService;
+    @Autowired
+    private ComponentService componentService;
 
     @RequestMapping("/initProduct")
     public String initProduct() {
-        
-        List<Effect> ea = new LinkedList<>();
-        ea.add(new Effect("irrite"));
-        ea.add(new Effect("pique les yeux"));
-        Component a = new Component("acide");
-        a.setEffects(ea);
-        
-        List<Effect> eb = new LinkedList<>();
-        eb.add(new Effect("rend soul"));
-        eb.add(new Effect("se dilue bien"));
-        Component b = new Component("acide alcooholique", a);
-        b.setEffects(eb);
-        
-        List<Effect> ec = new LinkedList<>();
-        ec.add(new Effect("nettoie"));
-        ec.add(new Effect("balaie mais rarement"));
-        Component c = new Component("base");
-        c.setEffects(ec);
-        
-        List<Effect> ed = new LinkedList<>();
-        ed.add(new Effect("pique les doigts"));
-        ed.add(new Effect("chatouille les narines"));
-        Component d = new Component("acide sulfurique", a);
-        d.setEffects(ed);
-        
-        List<Effect> ee = new LinkedList<>();
-        ee.add(new Effect("brule"));
-        ee.add(new Effect("pique les pieds"));
-        Component e = new Component("acide méthanol", a);
-        e.setEffects(ee);
-        
-        List<Effect> ef = new LinkedList<>();
-        ef.add(new Effect("mauvais gout"));
-        ef.add(new Effect("ne pas boire"));
-        Component f = new Component("acide alcooholique modifié", b);
-        f.setEffects(ef);
-        System.out.println("Ajout dans f :" + f.getEffects().size());
-        List<Effect> eg = new LinkedList<>();
-        eg.add(new Effect("basiquement mauvais"));
-        eg.add(new Effect("modification alien"));
-        Component g = new Component("base modifié", b);
-        g.setEffects(eg);
-        
+
+        Component a = componentService.create(new Component("acide"));
+        Component b = componentService.create(new Component("acide alcooholique", a));
+        Component c = componentService.create(new Component("base"));
+        Component d = componentService.create(new Component("acide sulfurique", a));
+        Component e = componentService.create(new Component("acide méthanol", a));
+        Component f = componentService.create(new Component("acide alcoolhol ++", b));
+        Component g = componentService.create(new Component("super base", c));
+
         List<Component> l = new LinkedList<>();
         l.add(a);
         l.add(b);
@@ -87,14 +55,6 @@ public class TestController {
 
         productService.create(new Product("Empty"));
 
-        return "redirect:/product/";
-    }
-    @RequestMapping("/modify")
-    public String modify() {
-        Product p = new Product();
-        p.setId(1);
-        p.setName("plopiplop");
-        productService.update(p);
         return "redirect:/product/";
     }
 }

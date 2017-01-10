@@ -17,6 +17,8 @@ public class ComponentService {
     @Autowired
     private ComponentRepository componentRepository;
 
+
+
     public List<Component> getAll() {
         List<Component> result = componentRepository.findAll();
         Collections.sort(result);
@@ -35,18 +37,26 @@ public class ComponentService {
         return componentRepository.findOne(id);
     }
 
-    public void delete(Component e) {
-        componentRepository.delete(e);
-    }
+
+
     public void delete(long e) {
         componentRepository.delete(e);
     }
 
-    public Component create(Component product) {
-        Component p = componentRepository.findByName(product.getName());
-        if (p != null) {
-            return p;
+    public Component save(Component component) {
+        Component c = componentRepository.findOne(component.getId());
+        if (c == null) {
+            c = componentRepository.findByName(component.getName());
+            if (c == null) {
+                c = new Component();
+            }
         }
-        return componentRepository.save(product);
+        c.setName(component.getName());
+        if (c.getParent() != null) c.setParent(c.getParent());
+        return componentRepository.save(c);
+    }
+
+    public Component create(Component component) {
+        return componentRepository.save(component);
     }
 }

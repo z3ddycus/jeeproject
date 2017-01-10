@@ -11,13 +11,12 @@ public class Product implements Comparable<Product>, Serializable {
 
     // ATTRIBUTES
 
-    @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
+    @Id
     private long id;
-
     private String name;
 
-    @ManyToMany(cascade = {CascadeType.PERSIST})
+    @ManyToMany(cascade = {CascadeType.REFRESH, CascadeType.MERGE, CascadeType.DETACH})
     private Set<Component> components;
 
     // CONSTRUCTOR

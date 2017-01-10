@@ -5,12 +5,18 @@ import javax.persistence.*;
 @Entity
 @Table(name = "user_id")
 public class User {
+
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
+    @Id
     private Long id;
+    @Column(unique=true)
     private String mail;
     private String firstName;
     private String lastName;
     private String password;
+    @ManyToOne
     private Role role;
+    @ManyToOne
     private Work work;
 
     public String getMail() {
@@ -38,8 +44,6 @@ public class User {
     }
 
 
-    @Id
-    @GeneratedValue(strategy=GenerationType.IDENTITY)
     public Long getId() {
         return id;
     }

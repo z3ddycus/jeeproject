@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import univ.domain.Component;
 import univ.domain.Product;
 import univ.service.ComponentService;
 import univ.service.ProductService;
@@ -29,12 +30,27 @@ public class ProductController {
         return "allProduct";
     }
 
+    @RequestMapping(value="/{Id}/addComponent/{IdComponent}", method= RequestMethod.GET)
+    public String addComponent(Model model, @PathVariable(value="Id") String id, @PathVariable(value="IdComponent") String idComp) {
+        long longId = Long.parseLong(id);
+        Product p = productService.get(longId);
+        long longIdComp = Long.parseLong(idComp);
+        Component c = componentService.get(longIdComp);
+        p.getComponents().add(c);
+        productService.update(p);
+        return "redirect:/product/" + id;
+    }
+
+
     @RequestMapping(value="/{ID}", method= RequestMethod.GET)
     public String get(Model model, @PathVariable(value="ID") String id) {
         try {
             long longId = Long.parseLong(id);
             Product p = productService.get(longId);
             model.addAttribute("product", p);
+            model.addAttribute("newComponent", new Component());
+            model.addAttribute("components", componentService.getAll());
+            model.addAttribute("autocompleteValues", componentService.getAutocompleteValues());
             model.addAttribute("effects", p.getEffects());
             return "product";
         } catch (Exception e) {
