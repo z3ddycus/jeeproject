@@ -3,10 +3,7 @@ package univ.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 import univ.domain.Component;
 import univ.domain.Product;
 import univ.service.ComponentService;
@@ -28,6 +25,15 @@ public class ProductController {
         model.addAttribute("autocompleteValues", productService.getAutocompleteMap());
         model.addAttribute("products", productService.getAll());
         return "allProduct";
+    }
+
+    @RequestMapping(value="/{Id}/rename", method= RequestMethod.GET)
+    public String rename(Model model, @PathVariable(value="Id") String id, @RequestParam("name") String name) {
+        long longId = Long.parseLong(id);
+        Product p = productService.get(longId);
+        p.setName(name);
+        p=productService.update(p);
+        return "redirect:/product/" + id;
     }
 
     @RequestMapping(value="/{Id}/addComponent/{IdComponent}", method= RequestMethod.GET)

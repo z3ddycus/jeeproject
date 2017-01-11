@@ -12,11 +12,33 @@
         <div class="nav-wrapper red lighten-1">
             <div class="container">
                 <a th:text="${product.name}">Produit</a>
+                <a class="right" th:href="@{/product/{orderId}/delete(orderId=${product.id})}">
+                    <i class="icon-white material-icons">delete</i>
+                </a>
             </div>
         </div>
     </nav>
 
     <div class="container">
+        <div class ="row s12 valign-wrapper switchVisibilityEditNameToHide">
+            <h3 class ="valign" th:text="${product.name}"></h3>
+            <a class="btn-flat valign"
+               onclick="$('#editButton').hide(); $('.switchVisibilityEditNameToHide').hide(); $('.switchVisibilityEditNameToShow').show();">
+                <i class="material-icons">mode_edit</i>
+            </a>
+        </div>
+        <div class ="row s12 switchVisibilityEditNameToShow" hidden="hidden">
+            <form class ="valign-wrapper" method="get" th:action="@{/product/{id}/rename(id=${product.id})}">
+                <div class="input-field valign">
+                    <input type="text" id="editInput" name="name"/>
+                    <label for="editInput">Renommer</label>
+                </div>
+
+                <input type="submit" class="input-field valign btn-flat" th:value="valider"/>
+            </form>
+        </div>
+
+
         <div class = "col s5">
             <table>
                 <thead>
@@ -67,7 +89,11 @@
             var productId   = [[${product.id}]];
          +]*/
 
-        console.log("local : " + productId);
+        function sendRename() {
+            var newText = $("#editInput").val();
+            window.location.replace("/product/" + productId + "/rename/" + newText);
+        }
+
         function addComponent() {
             window.location.replace("/product/" + productId + "/addComponent/" + $("#componentAddSelect").val());
         }

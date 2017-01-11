@@ -19,14 +19,20 @@ import java.util.TreeSet;
 @Controller
 @RequestMapping("/component")
 public class ComponentController {
+
+
     @Autowired
     ComponentService componentService;
+
+
 
     @RequestMapping(value="/create", method=RequestMethod.POST)
     public String create(Model model, @ModelAttribute("newComponent") Component compForm) {
         Component c = componentService.save(compForm);
         return "redirect:/component/" + c.getId();
     }
+
+
 
     @RequestMapping(value="/", method= RequestMethod.GET)
     public String getAll(Model model) {
@@ -35,6 +41,8 @@ public class ComponentController {
         model.addAttribute("components", componentService.getAll());
         return "allComponent";
     }
+
+
 
     @RequestMapping(value="/{ID}", method= RequestMethod.GET)
     public String get(Model model, @PathVariable(value="ID") String id) {
@@ -60,6 +68,7 @@ public class ComponentController {
             return "redirect:/component/";
         }
     }
+
 
 
     @RequestMapping(value="/{ID}/delete", method= RequestMethod.GET)
