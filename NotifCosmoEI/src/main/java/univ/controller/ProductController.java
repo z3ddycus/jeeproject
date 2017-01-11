@@ -4,8 +4,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import univ.domain.Component;
-import univ.domain.Product;
+import univ.domain.entity.Component;
+import univ.domain.entity.Product;
 import univ.service.ComponentService;
 import univ.service.ProductService;
 

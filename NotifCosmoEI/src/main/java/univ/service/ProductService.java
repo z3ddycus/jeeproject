@@ -3,8 +3,8 @@ package univ.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import univ.domain.Component;
-import univ.domain.Product;
+import univ.domain.entity.Component;
+import univ.domain.entity.Product;
 import univ.repository.ProductRepository;
 
 import java.util.*;
@@ -43,6 +43,7 @@ public class ProductService {
     }
 
     // COMMANDS
+
     @Transactional
     public Product create(Product product) {
         Product p = productRepository.findOne(product.getId());
@@ -65,6 +66,7 @@ public class ProductService {
         return productRepository.save(newP);
     }
 
+    @Transactional
     public Product update(Product product) {
         Product newP = productRepository.findOne(product.getId());
         newP.setName(product.getName());
@@ -75,10 +77,6 @@ public class ProductService {
         }
         newP.setComponents(components);
         return productRepository.save(newP);
-    }
-
-    public void delete(Product p) {
-        productRepository.delete(p);
     }
 
     public void delete(long id) {

@@ -1,4 +1,4 @@
-package univ.domain;
+package univ.domain.entity;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -14,9 +14,10 @@ public class Product implements Comparable<Product>, Serializable {
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     @Id
     private long id;
+    @Column(unique = true)
     private String name;
 
-    @ManyToMany(cascade = {CascadeType.REFRESH, CascadeType.MERGE, CascadeType.DETACH})
+    @ManyToMany
     private Set<Component> components;
 
     // CONSTRUCTOR
@@ -67,5 +68,20 @@ public class Product implements Comparable<Product>, Serializable {
     @Override
     public int compareTo(Product o) {
         return name.compareTo(o.getName());
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Product product = (Product) o;
+
+        return name.equals(product.name);
+    }
+
+    @Override
+    public int hashCode() {
+        return name == null ? 0 : name.hashCode();
     }
 }

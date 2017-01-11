@@ -2,13 +2,11 @@ package univ.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import univ.domain.Component;
+import org.springframework.transaction.annotation.Transactional;
+import univ.domain.entity.Component;
 import univ.repository.ComponentRepository;
 
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 
 @Service
@@ -36,6 +34,9 @@ public class ComponentService {
     public Component get(long id) {
         return componentRepository.findOne(id);
     }
+    public Component get(String name) {
+        return componentRepository.findByName(name);
+    }
 
 
 
@@ -43,20 +44,33 @@ public class ComponentService {
         componentRepository.delete(e);
     }
 
-    public Component save(Component component) {
+    @Transactional
+    public Component update(Component component) {
         Component c = componentRepository.findOne(component.getId());
-        if (c == null) {
-            c = componentRepository.findByName(component.getName());
-            if (c == null) {
-                c = new Component();
-            }
-        }
         c.setName(component.getName());
-        if (c.getParent() != null) c.setParent(c.getParent());
+        c.setParent(component.getParent());
         return componentRepository.save(c);
     }
 
+    @Transactional
     public Component create(Component component) {
+        if (component.getName() == null) {
+            return null;
+        }
+
+        Component c = componentRepository.findOne(component.getId());
+        if (c != null) {
+            return c;
+        } else if (component.getName() != null){
+            c = componentRepository.findByName(component.getName());
+            if (c != null) {
+                return c;
+            }
+        }
+        Component newC = new Component();
+        newC.setName(component.getName());
+        newC.setParent(component.getParent());
+        newC.setEffects(component.getEffects());
         return componentRepository.save(component);
     }
 }

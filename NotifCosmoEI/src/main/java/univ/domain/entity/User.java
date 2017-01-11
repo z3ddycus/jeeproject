@@ -1,10 +1,11 @@
-package univ.domain;
+package univ.domain.entity;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 @Entity
 @Table(name = "user_id")
-public class User {
+public class User implements Serializable {
 
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     @Id
@@ -14,6 +15,16 @@ public class User {
     private String firstName;
     private String lastName;
     private String password;
+
+    public String getRegion() {
+        return region;
+    }
+
+    public void setRegion(String region) {
+        this.region = region;
+    }
+
+    private String region;
     @ManyToOne
     private Role role;
     @ManyToOne

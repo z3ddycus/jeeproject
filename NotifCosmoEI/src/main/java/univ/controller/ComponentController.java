@@ -3,18 +3,13 @@ package univ.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import univ.domain.Component;
-import univ.domain.Effect;
-import univ.domain.Product;
+import org.springframework.web.bind.annotation.*;
+import univ.domain.EffectsResume;
+import univ.domain.entity.Component;
+import univ.domain.entity.Product;
 import univ.service.ComponentService;
 
-import java.util.List;
-import java.util.Set;
-import java.util.TreeSet;
+import java.util.*;
 
 @Controller
 @RequestMapping("/component")
@@ -28,7 +23,7 @@ public class ComponentController {
 
     @RequestMapping(value="/create", method=RequestMethod.POST)
     public String create(Model model, @ModelAttribute("newComponent") Component compForm) {
-        Component c = componentService.save(compForm);
+        Component c = componentService.create(compForm);
         return "redirect:/component/" + c.getId();
     }
 
@@ -46,7 +41,7 @@ public class ComponentController {
 
     @RequestMapping(value="/{ID}", method= RequestMethod.GET)
     public String get(Model model, @PathVariable(value="ID") String id) {
-        try {
+        //try {
             long longId = Long.parseLong(id);
             Component c = componentService.get(longId);
             if (c == null) {
@@ -54,7 +49,9 @@ public class ComponentController {
                 return "redirect:/error";
             }
             List<Component> parents = c.getInheritanceList();
-            Set<Effect> effects = c.getInheritanceEffects();
+            List<EffectsResume.InfoEffect> effects = new EffectsResume(c.getInheritanceEffects()).toList();
+            Collections.sort(effects);
+
             Set<Product> products = new TreeSet<>(c.getProducts());
             for (Component comp : c.getInheritanceChildren()) {
                 products.addAll(comp.getProducts());
@@ -64,12 +61,21 @@ public class ComponentController {
             model.addAttribute("inheritance", parents);
             model.addAttribute("effects", effects);
             return "component";
-        } catch (Exception e) {
+        /*} catch (Exception e) {
+            System.out.println("oups");
             return "redirect:/component/";
-        }
+        }*/
     }
 
 
+    @RequestMapping(value="/{Id}/rename", method= RequestMethod.GET)
+    public String rename(Model model, @PathVariable(value="Id") String id, @RequestParam("name") String name) {
+        long longId = Long.parseLong(id);
+        Component p = componentService.get(longId);
+        p.setName(name);
+        p=componentService.update(p);
+        return "redirect:/component/" + id;
+    }
 
     @RequestMapping(value="/{ID}/delete", method= RequestMethod.GET)
     public String delete(Model model, @PathVariable(value="ID") String id) {

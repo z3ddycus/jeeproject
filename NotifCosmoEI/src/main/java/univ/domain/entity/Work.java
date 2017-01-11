@@ -1,9 +1,10 @@
-package univ.domain;
+package univ.domain.entity;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 @Entity
-public class Work {
+public class Work implements Serializable{
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     @Id
     private Long id;

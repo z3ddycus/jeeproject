@@ -1,4 +1,4 @@
-package univ.domain;
+package univ.domain.entity;
 
 
 import javax.persistence.*;
@@ -14,17 +14,18 @@ public class Component implements Comparable<Component>, Serializable{
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     @Id
     private long id;
+    @Column(unique = true)
     private String name;
-
-    @OneToMany(mappedBy="component", cascade = {CascadeType.REFRESH, CascadeType.MERGE, CascadeType.DETACH})
-    private Set<Effect> effects;
-    @ManyToMany(mappedBy="components", cascade = {CascadeType.REFRESH, CascadeType.MERGE, CascadeType.DETACH})
-    private Set<Product> products;
-    @OneToMany(mappedBy="parent", cascade = {CascadeType.REMOVE})
-    private Set<Component> children;
-
     @ManyToOne
     private Component parent;
+
+    @OneToMany(mappedBy="component", cascade={CascadeType.REMOVE}, orphanRemoval = true, fetch = FetchType.EAGER)
+    private Set<Effect> effects;
+    @ManyToMany(mappedBy="components")
+    private Set<Product> products;
+    @OneToMany(mappedBy="parent")
+    private Set<Component> children;
+
 
     // PREACTION
 
@@ -120,7 +121,7 @@ public class Component implements Comparable<Component>, Serializable{
     }
 
     public Set<Effect> getInheritanceEffects() {
-        Set<Effect> result = new TreeSet<>();
+        Set<Effect> result = new HashSet<>();
         for (Component comp : getInheritanceList()) {
             result.addAll(comp.getEffects());
         }
@@ -134,5 +135,22 @@ public class Component implements Comparable<Component>, Serializable{
     @Override
     public int compareTo(Component o) {
         return name.compareTo(o.getName());
+    }
+
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Component component = (Component) o;
+
+        return name != null ? name.equals(component.name) : component.name == null;
+
+    }
+
+    @Override
+    public int hashCode() {
+        return name != null ? name.hashCode() : 0;
     }
 }

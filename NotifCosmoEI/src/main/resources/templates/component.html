@@ -16,8 +16,27 @@
     </nav>
 
     <div class = "container">
+        <div class ="row s12 valign-wrapper switchVisibilityEditNameToHide">
+            <h3 class ="valign" th:text="${component.name}"></h3>
+            <a class="btn-flat valign"
+               onclick="$('#editButton').hide(); $('.switchVisibilityEditNameToHide').hide(); $('.switchVisibilityEditNameToShow').show();">
+                <i class="material-icons">mode_edit</i>
+            </a>
+        </div>
+        <div class ="row s12 switchVisibilityEditNameToShow" hidden="hidden">
+            <form class ="valign-wrapper" method="get" th:action="@{/component/{id}/rename(id=${component.id})}">
+                <div class="input-field valign">
+                    <input type="text" id="editInput" name="name"/>
+                    <label for="editInput">Renommer</label>
+                </div>
+
+                <input type="submit" class="input-field valign btn-flat" th:value="valider"/>
+            </form>
+        </div>
+
+
         <div class = "row">
-            <div class = "col s3">
+            <div class = "col s2">
                 <table>
                     <thead>
                         <tr>
@@ -32,16 +51,24 @@
                 </table>
             </div>
 
-            <div class = "col s8 offset-s1">
+            <div class = "col s9 offset-s1">
                 <table>
                     <thead>
                         <tr>
-                            <th>A pour effet</th>
+                            <th>Effet indésirable</th>
+                            <th>Poids</th>
+                            <th>Déclaration</th>
+                            <th>Par</th>
+                            <th>Plus récent</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr th:each="effect : ${effects}">
                             <td th:text="${effect.description}">*toussote*</td>
+                            <td th:text="${effect.weight}">*toussote*</td>
+                            <td th:text="${effect.firstDeclare}">*toussote*</td>
+                            <td th:text="${effect.firstUserDeclare.firstName} + ' ' + ${effect.firstUserDeclare.lastName}">*toussote*</td>
+                            <td th:text="${effect.lastDeclare}">*toussote*</td>
                         </tr>
                     </tbody>
                 </table>
