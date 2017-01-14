@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.w3.org/1999/xhtml"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" xmlns:sec="http://www.w3.org/1999/xhtml"
+      layout:decorator="layout/default">
+<head lang="fr">
+    <title>Les alertes</title>
+</head>
+<body>
+<div class="row" layout:fragment="content">
+    <nav>
+        <div class="nav-wrapper red lighten-1">
+            <div class="container">
+                <a>Liste des alertes</a>
+            </div>
+        </div>
+    </nav>
+    <div class = "container">
+        <table>
+            <thead>
+            <tr>
+                <th>Composant</th>
+                <th>Effet indésirable</th>
+                <th>Poids</th>
+                <th>Déclaration</th>
+                <th>Par</th>
+                <th>Plus récent</th>
+            </tr>
+            </thead>
+            <tbody>
+                <span th:each="report : ${reports}">
+                    <tr th:each="comp : ${report.value}">
+                        <td th:text="${comp}"></td>
+                        <td th:text="${report.key.description}">*toussote*</td>
+                        <td th:text="${report.key.weight}">*toussote*</td>
+                        <td th:text="${report.key.firstDeclare}">*toussote*</td>
+                        <td th:text="${report.key.userDeclare.firstName} + ' ' + ${report.key.userDeclare.lastName}">*toussote*</td>
+                        <td th:text="${report.key.lastDeclare}">*toussote*</td>
+                    </tr>
+                </span>
+            </tbody>
+        </table>
+    </div>
+</div>
+</body>
+</html>

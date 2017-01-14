@@ -4,20 +4,22 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import univ.domain.entity.Component;
-import univ.domain.entity.Product;
+import univ.domain.Component;
+import univ.domain.Product;
 import univ.service.ComponentService;
 import univ.service.ProductService;
+import univ.service.ReportService;
 
 @Controller
 @RequestMapping("/product")
 public class ProductController {
 
     @Autowired
-    ProductService productService;
-
+    private ProductService productService;
     @Autowired
-    ComponentService componentService;
+    private ReportService reportService;
+    @Autowired
+    private ComponentService componentService;
 
     @RequestMapping(value="/", method= RequestMethod.GET)
     public String getAll(Model model) {
@@ -50,18 +52,14 @@ public class ProductController {
 
     @RequestMapping(value="/{ID}", method= RequestMethod.GET)
     public String get(Model model, @PathVariable(value="ID") String id) {
-        try {
-            long longId = Long.parseLong(id);
-            Product p = productService.get(longId);
-            model.addAttribute("product", p);
-            model.addAttribute("newComponent", new Component());
-            model.addAttribute("components", componentService.getAll());
-            model.addAttribute("autocompleteValues", componentService.getAutocompleteValues());
-            model.addAttribute("effects", p.getEffects());
-            return "product";
-        } catch (Exception e) {
-            return "redirect:/product/";
-        }
+        long longId = Long.parseLong(id);
+        Product p = productService.get(longId);
+        model.addAttribute("product", p);
+        model.addAttribute("newComponent", new Component());
+        model.addAttribute("components", componentService.getAll());
+        model.addAttribute("autocompleteValues", componentService.getAutocompleteValues());
+        model.addAttribute("reports", reportService.getReports(p));
+        return "product";
     }
 
     @RequestMapping(value="/{ID}/delete", method= RequestMethod.GET)

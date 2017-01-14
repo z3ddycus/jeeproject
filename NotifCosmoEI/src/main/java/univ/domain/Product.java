@@ -1,8 +1,9 @@
-package univ.domain.entity;
+package univ.domain;
 
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.Set;
 import java.util.TreeSet;
 
@@ -59,7 +60,7 @@ public class Product implements Comparable<Product>, Serializable {
         this.components.addAll(components);
     }
     public Set<Effect> getEffects() {
-        Set result = new TreeSet();
+        Set result = new HashSet();
         for (Component c : components) {
             result.addAll(c.getEffects());
         }

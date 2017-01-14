@@ -44,6 +44,16 @@
                             </select>
                         </div>
                         <div class="input-field col s6">
+                            <select id="region" th:field="${user.region}" required="required">
+                                <option value="">Indiquez votre région</option>
+                                <option th:each="region:${regions}"
+                                        th:value="${region.id}"
+                                        th:text="${region.name}">My option</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="input-field col s6">
                             <label for="password">Password</label>
                             <input id="password" type="password" th:field="${user.password}"  th:text="${user.password}" required="required"/>
                         </div>

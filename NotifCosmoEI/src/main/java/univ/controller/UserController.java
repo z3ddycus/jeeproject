@@ -9,7 +9,9 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import univ.domain.entity.User;
+import univ.domain.User;
+import univ.repository.RoleRepository;
+import univ.service.RegionService;
 import univ.service.UserService;
 import univ.service.WorkService;
 
@@ -20,17 +22,23 @@ public class UserController {
     private UserService userService;
     @Autowired
     private WorkService workService;
+    @Autowired
+    private RegionService regionService;
+    @Autowired
+    private RoleRepository roleRepository;
 
     @RequestMapping(value = "/registration", method = RequestMethod.GET)
     public String registration(Model model) {
         model.addAttribute("user", new User());
         model.addAttribute("works", workService.getAll());
+        model.addAttribute("regions", regionService.getAll());
         return "registration";
     }
 
     @RequestMapping(value = "/registration", method = RequestMethod.POST)
     public String registration(@ModelAttribute("userForm") User userForm, Model model) {
         // TODO: 07/01/17 vérifier la validité du user si non renvoit vers registration
+        userForm.setRole(roleRepository.findOneByName("USER"));
         userService.save(userForm);
         return "redirect:/";
     }

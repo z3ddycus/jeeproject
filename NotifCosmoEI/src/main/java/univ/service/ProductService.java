@@ -3,8 +3,8 @@ package univ.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import univ.domain.entity.Component;
-import univ.domain.entity.Product;
+import univ.domain.Component;
+import univ.domain.Product;
 import univ.repository.ProductRepository;
 
 import java.util.*;

@@ -5,7 +5,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
-import univ.domain.entity.User;
+import univ.domain.User;
 import univ.repository.RoleRepository;
 import univ.repository.UserRepository;
 

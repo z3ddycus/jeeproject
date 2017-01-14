@@ -1,11 +1,11 @@
-package univ.domain.entity;
+package univ.domain;
 
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
 
 @Entity
-public class Effect implements Serializable {
+public class Effect implements Serializable, Comparable<Effect> {
 
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY) private long id;
@@ -80,5 +80,13 @@ public class Effect implements Serializable {
         result = 31 * result + (component != null ? component.hashCode() : 0);
         result = 31 * result + (description != null ? description.hashCode() : 0);
         return result;
+    }
+
+    @Override
+    public int compareTo(Effect o) {
+        int val = description.compareTo(o.getDescription());
+        if (val != 0) return val;
+
+        return date.compareTo(o.getDate());
     }
 }

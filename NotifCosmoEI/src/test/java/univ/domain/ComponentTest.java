@@ -1,7 +1,6 @@
 package univ.domain;
 
 import org.junit.Test;
-import univ.domain.entity.Component;
 
 import java.util.LinkedList;
 

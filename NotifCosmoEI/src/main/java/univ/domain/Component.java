@@ -1,4 +1,4 @@
-package univ.domain.entity;
+package univ.domain;
 
 
 import javax.persistence.*;

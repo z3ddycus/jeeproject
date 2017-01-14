@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.w3.org/1999/xhtml"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" xmlns:sec="http://www.w3.org/1999/xhtml"
       layout:decorator="layout/default">
 <head lang="fr">
     <title>Composant</title>
@@ -63,18 +63,44 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr th:each="effect : ${effects}">
-                            <td th:text="${effect.description}">*toussote*</td>
-                            <td th:text="${effect.weight}">*toussote*</td>
-                            <td th:text="${effect.firstDeclare}">*toussote*</td>
-                            <td th:text="${effect.firstUserDeclare.firstName} + ' ' + ${effect.firstUserDeclare.lastName}">*toussote*</td>
-                            <td th:text="${effect.lastDeclare}">*toussote*</td>
+                        <tr th:each="report : ${reports}">
+                            <td th:text="${report.description}">*toussote*</td>
+                            <td th:text="${report.weight}">*toussote*</td>
+                            <td th:text="${report.firstDeclare}">*toussote*</td>
+                            <td th:text="${report.userDeclare.firstName} + ' ' + ${report.userDeclare.lastName}">*toussote*</td>
+                            <td th:text="${report.lastDeclare}">*toussote*</td>
                         </tr>
                     </tbody>
                 </table>
+                <form sec:authorize="isAuthenticated()" class="row" id="AddEffectHidden" hidden="hidden"
+                     method="post"
+                     th:action="@{/component/{id}/addEffect(id=${component.id})}">
+                    <div class="input-field col s12">
+                        <input type="text" id="autocomplete-input" class="autocomplete" name="description"/>
+                        <label for="autocomplete-input">Recherche de produit</label>
+                    </div>
+                    <button class="btn waves-effect waves-light red" type="submit">
+                        Ajouter
+                    </button>
+                </form>
+                <a sec:authorize="isAuthenticated()" class="waves-effect waves-light btn red" id="buttonAdd" onclick="$('#buttonAdd').hide(); $('#AddEffectHidden').show();">
+                    <i class="material-icons">add</i>
+                    Ajouter un effet indésirable
+                </a>
             </div>
         </div>
     </div>
+    <script type="text/javascript" th:inline="javascript">
+
+        /*<![CDATA[*/
+        var textToValue = /*[[${autocompleteValues}]]*/ 'User Name';
+        /*]]>*/
+        var autocompleteValues = {};
+        for (var key in textToValue) {
+            autocompleteValues[key] = null;
+        }
+        $(document).ready(function () {$("#autocomplete-input").autocomplete({data: autocompleteValues})});
+    </script>
 </div>
 </body>
 </html>

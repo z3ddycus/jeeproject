@@ -5,14 +5,12 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-import univ.domain.entity.Component;
-import univ.domain.entity.Effect;
-import univ.domain.entity.Product;
-import univ.domain.entity.User;
-import univ.service.ComponentService;
-import univ.service.EffectService;
-import univ.service.ProductService;
-import univ.service.UserService;
+import univ.domain.Component;
+import univ.domain.Effect;
+import univ.domain.Product;
+import univ.domain.User;
+import univ.repository.EffectRepository;
+import univ.service.*;
 
 import java.util.Date;
 import java.util.LinkedList;
@@ -29,6 +27,10 @@ public class TestController {
     private UserService userService;
     @Autowired
     private EffectService effectService;
+    @Autowired
+    private RegionService regionService;
+    @Autowired
+    private EffectRepository effectRepository;
 
     @RequestMapping("/initProduct")
     public String initProduct() {

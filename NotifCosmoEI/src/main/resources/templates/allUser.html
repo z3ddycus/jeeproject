@@ -44,12 +44,6 @@
                 <td th:text="${user.work}"> </td>
                 <td th:text="${user.role.name}"></td>
                 <td class="right" sec:authorize="isAuthenticated()" th:switch="${user.role.name}">
-                    <a th:case="'ADMIN'" class="btn-flat" th:href="@{/user/{orderId}/decreaseRole(orderId=${user.id})}">
-                        <i class="material-icons">thumb_down</i>
-                    </a>
-                    <a th:case="'USER'" class="btn-flat" th:href="@{/user/{orderId}/increaseRole(orderId=${user.id})}">
-                        <i class="material-icons">thumb_up</i>
-                    </a>
                     <a class="btn-flat" th:href="@{/user/{orderId}/delete(orderId=${user.id})}">
                         <i class="material-icons">delete</i>
                     </a>

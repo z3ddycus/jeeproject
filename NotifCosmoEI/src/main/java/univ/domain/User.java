@@ -1,4 +1,4 @@
-package univ.domain.entity;
+package univ.domain;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -15,20 +15,21 @@ public class User implements Serializable {
     private String firstName;
     private String lastName;
     private String password;
-
-    public String getRegion() {
-        return region;
-    }
-
-    public void setRegion(String region) {
-        this.region = region;
-    }
-
-    private String region;
+    @ManyToOne
+    private Region region;
     @ManyToOne
     private Role role;
     @ManyToOne
     private Work work;
+
+
+    public void setRegion(Region region) {
+        this.region = region;
+    }
+
+    public Region getRegion() {
+        return region;
+    }
 
     public String getMail() {
         return mail;
@@ -99,6 +100,7 @@ public class User implements Serializable {
                 ", password='" + password + '\'' +
                 ", role=" + (role == null ? "null" : role.getName()) +
                 ", type=" + work +
-                '}';
+                ", region=" + region.getName()
+                + '}';
     }
 }
