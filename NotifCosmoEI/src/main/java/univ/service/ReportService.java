@@ -24,7 +24,6 @@ public class ReportService {
     public Collection<Report> getReports(Product p) {
         return getReportsByDescription(p.getEffects());
     }
-
     public Collection<Report> getReports(Component c) {
         return getReportsByDescription(c.getInheritanceEffects());
     }

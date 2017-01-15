@@ -4,10 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
-import univ.domain.Component;
-import univ.domain.Effect;
-import univ.domain.Product;
-import univ.domain.Region;
+import univ.domain.*;
 import univ.repository.EffectRepository;
 
 import java.util.HashSet;
@@ -46,6 +43,9 @@ public class EffectService {
         return result;
     }
 
+    public Set<Effect> getByUser(User user) {
+        return effectRepository.findByUser(user);
+    }
     public Effect create(Effect e) {
         if (e.getUser() == null) {
             Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
@@ -54,4 +54,7 @@ public class EffectService {
         return effectRepository.save(e);
     }
 
+    public void delete(Effect effect) {
+        effectRepository.delete(effect);
+    }
 }

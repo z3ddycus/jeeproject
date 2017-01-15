@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.w3.org/1999/xhtml"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" xmlns:sec="http://www.w3.org/1999/xhtml"
       layout:decorator="layout/default">
 <head lang="fr">
     <title th:text="'Détail du produit' + ${product.id}">Détail du produit</title>
@@ -12,7 +12,7 @@
         <div class="nav-wrapper red lighten-1">
             <div class="container">
                 <a th:text="${product.name}">Produit</a>
-                <a class="right" th:href="@{/product/{orderId}/delete(orderId=${product.id})}">
+                <a  sec:authorize="isAuthenticated()" class="right" th:href="@{/product/{orderId}/delete(orderId=${product.id})}">
                     <i class="icon-white material-icons">delete</i>
                 </a>
             </div>
@@ -22,7 +22,7 @@
     <div class="container">
         <div class ="row s12 valign-wrapper switchVisibilityEditNameToHide">
             <h3 class ="valign" th:text="${product.name}"></h3>
-            <a class="btn-flat valign"
+            <a sec:authorize="isAuthenticated()" class="btn-flat valign"
                onclick="$('#editButton').hide(); $('.switchVisibilityEditNameToHide').hide(); $('.switchVisibilityEditNameToShow').show();">
                 <i class="material-icons">mode_edit</i>
             </a>

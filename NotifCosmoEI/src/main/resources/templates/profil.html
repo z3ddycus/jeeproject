@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.w3.org/1999/xhtml"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" xmlns:sec="http://www.w3.org/1999/xhtml"
       layout:decorator="layout/default">
 <head lang="fr">
     <title>Profil</title>
@@ -16,8 +16,54 @@
     </nav>
 
     <div class="container">
-        <p class="titleUser" th:text="${user.firstName} + ' ' + ${user.lastName}"></p>
-        <p class="workUser" th:text="${user.work}"></p>
+        <table>
+            <thead>
+                <tr>
+                    <th>Prénom</th>
+                    <th>Nom</th>
+                    <th>Email</th>
+                    <th>Région</th>
+                    <th>Qualité</th>
+                    <th sec:authorize="isAuthenticated()"></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td th:text="${user.firstName}"></td>
+                    <td th:text="${user.lastName}"></td>
+                    <td th:text="${user.mail}"></td>
+                    <td th:text="${user.region.name}"></td>
+                    <td th:text="${user.work.name}"> </td>
+                    <td class="right" sec:authorize="isAuthenticated()" th:switch="${user.role.name}">
+                        <a class="btn-flat" th:href="@{/user/{orderId}/delete(orderId=${user.id})}">
+                            <i class="material-icons">delete</i>
+                        </a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <table>
+            <thead>
+            <tr>
+                <th>Effet indésirable</th>
+                <th>Composants</th>
+                <th>Date</th>
+                <th>Opérations</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="effect: ${effects}">
+                <td th:text="${effect.description}">*toussote*</td>
+                <td th:text="${effect.component.name}">*toussote*</td>
+                <td th:text="${effect.date}">*toussote*</td>
+                <td class="right" sec:authorize="isAuthenticated()">
+                    <a class="btn-flat" th:href="@{/user/{orderId}/deleteEffect/{effectId}(orderId=${user.id}, effectId=${effect.id})}">
+                        <i class="material-icons">delete</i>
+                    </a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
     </div>
 </div>
 </body>

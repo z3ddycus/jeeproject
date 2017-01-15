@@ -51,14 +51,14 @@
                     </tr>
                 </tbody>
             </table>
-            <a class="waves-effect waves-light btn red" id="buttonAdd" onclick="newComponent()">
+            <a sec:authorize="isAuthenticated()" class="waves-effect waves-light btn red" id="buttonAdd" onclick="newComponent()">
                 <i class="material-icons">add</i>
                 Ajouter un composant
             </a>
 
 
 
-            <form id="formulaireHidden" hidden="hidden" th:action="@{/component/create}" th:object="${newComponent}" method="post" >
+            <form sec:authorize="isAuthenticated()" id="formulaireHidden" hidden="hidden" th:action="@{/component/create}" th:object="${newComponent}" method="post" >
                 <div class="row">
                     <div class="input-field col s5">
                         <label for="name">Nom du composant</label>

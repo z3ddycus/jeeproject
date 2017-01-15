@@ -11,6 +11,9 @@
         <div class="nav-wrapper red lighten-1">
             <div class="container">
                 <a th:each="element:${inheritance}" th:text="${element.name}" th:href="@{/component/{orderId}(orderId=${element.id})}" class="breadcrumb">First</a>
+                <a  sec:authorize="isAuthenticated()" class="right" th:href="@{/component/{orderId}/delete(orderId=${component.id})}">
+                    <i class="icon-white material-icons">delete</i>
+                </a>
             </div>
         </div>
     </nav>
@@ -18,7 +21,7 @@
     <div class = "container">
         <div class ="row s12 valign-wrapper switchVisibilityEditNameToHide">
             <h3 class ="valign" th:text="${component.name}"></h3>
-            <a class="btn-flat valign"
+            <a sec:authorize="isAuthenticated()" class="btn-flat valign"
                onclick="$('#editButton').hide(); $('.switchVisibilityEditNameToHide').hide(); $('.switchVisibilityEditNameToShow').show();">
                 <i class="material-icons">mode_edit</i>
             </a>

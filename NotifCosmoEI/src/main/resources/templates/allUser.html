@@ -32,8 +32,8 @@
         <table class="bordered">
             <thead>
             <th>Utilisateur</th>
+            <th>Région</th>
             <th>Qualité</th>
-            <th>Role</th>
             <th sec:authorize="isAuthenticated()"></th>
             </thead>
             <tbody>
@@ -41,8 +41,8 @@
                 <td>
                     <a th:text="${user.firstName} + ' ' + ${user.lastName}" th:href="@{/user/{orderId}(orderId=${user.id})}">*toussote*</a>
                 </td>
-                <td th:text="${user.work}"> </td>
-                <td th:text="${user.role.name}"></td>
+                <td th:text="${user.region.name}"/>
+                <td th:text="${user.work.name}"> </td>
                 <td class="right" sec:authorize="isAuthenticated()" th:switch="${user.role.name}">
                     <a class="btn-flat" th:href="@{/user/{orderId}/delete(orderId=${user.id})}">
                         <i class="material-icons">delete</i>
