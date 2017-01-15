@@ -16,7 +16,8 @@
     </nav>
 
     <div class="container">
-        <p th:text="${message}">Vous n'auriez pas fait quelque chose de mal j'espère?</p>
+        <p th:if="${message} != 'No message available'" th:text="${message} ">Vous n'auriez pas fait quelque chose de mal j'espère?</p>
+        <p th:if="${message} == 'No message available'">Vous n'auriez pas fait quelque chose de mal j'espère?</p>
     </div>
 </div>
 </body>

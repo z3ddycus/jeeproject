@@ -85,7 +85,6 @@ public class ComponentController {
             effect.setDescription(description);
             effect.setComponent(c);
             effectService.create(effect);
-            System.out.println("*" + description + "*");
         }
         return "redirect:/component/" + id;
     }

@@ -10,11 +10,26 @@
     <nav>
         <div class="nav-wrapper red lighten-1">
             <div class="container">
-                <a>Liste des alertes</a>
+                <a th:text="${titre}"></a>
             </div>
         </div>
     </nav>
     <div class = "container">
+        <form th:action="@{/report/}" method="get">
+            <div class="input-field col s6">
+                <select id="region" name="region" required="required">
+                    <option value="-1">Toutes les régions</option>
+                    <option th:each="region:${regions}"
+                            th:value="${region.id}"
+                            th:text="${region.name}">My option</option>
+                </select>
+            </div>
+            <div class="input-field col s5 offset-s1">
+                <button class="btn waves-effect waves-light red" type="submit">
+                    Envoyer
+                </button>
+            </div>
+        </form>
         <table>
             <thead>
             <tr>

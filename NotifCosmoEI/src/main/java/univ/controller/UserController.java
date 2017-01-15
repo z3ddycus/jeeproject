@@ -41,7 +41,9 @@ public class UserController {
 
     @RequestMapping(value = "/registration", method = RequestMethod.POST)
     public String registration(@ModelAttribute("userForm") User userForm, Model model) {
-        // TODO: 07/01/17 vérifier la validité du user si non renvoit vers registration
+        if (userService.findByMail(userForm.getMail()) != null) {
+            return "redirect:/registration";
+        }
         userForm.setRole(roleRepository.findOneByName("USER"));
         userService.save(userForm);
         return "redirect:/";

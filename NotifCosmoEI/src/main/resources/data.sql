@@ -1,7 +1,8 @@
 INSERT INTO role
 VALUES
   (2, 'ADMIN'),
-  (1, 'USER' );
+  (1, 'USER' )
+ON CONFLICT (id) DO NOTHING;
 
 INSERT INTO work
 VALUES
@@ -9,7 +10,8 @@ VALUES
   (2, 'Pharmacien',                   3.0),
   (3, 'Association de consommateurs', 2.5),
   (4, 'Laboratoire',                  4.0),
-  (5, 'Utilisateur simple',           1.0);
+  (5, 'Utilisateur simple',           1.0)
+ON CONFLICT (id) DO NOTHING;
 
 INSERT INTO region
 VALUES
@@ -30,4 +32,5 @@ VALUES
   (15, 'Martinique'),
   (16, 'Guyane'),
   (17, 'La Réunion'),
-  (18, 'Mayotte');
+  (18, 'Mayotte')
+ON CONFLICT (id) DO NOTHING;

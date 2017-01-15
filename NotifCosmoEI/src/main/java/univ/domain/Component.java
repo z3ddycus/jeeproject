@@ -5,30 +5,57 @@ import javax.persistence.*;
 import java.io.Serializable;
 import java.util.*;
 
+/**
+ * Un composant.
+ */
 @Entity
 public class Component implements Comparable<Component>, Serializable{
 
     // ATTRIBUTES
 
-
+    /**
+     * Un identifiant définie automatiquement.
+     */
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     @Id
     private long id;
+
+    /**
+     * Le nom du composant.
+     */
     @Column(unique = true)
     private String name;
+
+    /**
+     * Le type parent du composant.
+     */
     @ManyToOne
     private Component parent;
 
+    /**
+     * Les effets indésirables.
+     */
     @OneToMany(mappedBy="component", cascade={CascadeType.REMOVE}, orphanRemoval = true, fetch = FetchType.EAGER)
-    private Set<Effect> effects;
+    private Set<Effect> effects = new TreeSet<>();
+
+    /**
+     * Les produits l'utilisant.
+     */
     @ManyToMany(mappedBy="components")
-    private Set<Product> products;
+    private Set<Product> products = new TreeSet<>();
+
+    /**
+     * Les composants héritants.
+     */
     @OneToMany(mappedBy="parent")
-    private Set<Component> children;
+    private Set<Component> children = new TreeSet<>();
 
 
     // PREACTION
 
+    /**
+     * Supprime les composants des produits.
+     */
     @PreRemove
     private void deletingEntity() {
         for (Product p : products) {
@@ -36,68 +63,46 @@ public class Component implements Comparable<Component>, Serializable{
         }
     }
 
-    // CONSTRUCTOR
+    // REQUESTS
 
-    public Component() {
-        children = new TreeSet<>();
-        products = new TreeSet<>();
-        effects = new TreeSet<>();
-    }
-
-    public Component(String name, Component parent) {
-        this(name);
-        this.parent = parent;
-    }
-    public Component(String name) {
-        this();
-        this.name = name;
-    }
-
-
-    // GETTER
-
+    /**
+     * L'id.
+     */
     public long getId() {
         return id;
     }
 
+    /**
+     * Le nom.
+     */
     public String getName() {
         return name;
     }
 
+    /**
+     * Le parent
+     */
     public Component getParent() {
         return parent;
     }
 
-    public void setId(long id) {
-        this.id = id;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public void setParent(Component parent) {
-        this.parent = parent;
-    }
-
+    /**
+     * Les effets concernant directement le composant.
+     */
     public Set<Effect> getEffects() {
-        return effects;
+        return Collections.synchronizedSet(effects);
     }
 
-    public void setEffects(Collection<Effect> effects) {
-        this.effects.clear();
-        this.effects.addAll(effects);
-    }
-
+    /**
+     * Les produits contenant le composant.
+     */
     public Set<Product> getProducts() {
-        return products;
+        return Collections.synchronizedSet(products);
     }
 
-    public void setProducts(Collection<Product> products) {
-        this.products.clear();
-        this.products.addAll(products);
-    }
-
+    /**
+     * La liste des parents en partant de la racine.
+     */
     public List<Component> getInheritanceList() {
         LinkedList<Component> queue = new LinkedList<>();
         Component current = this;
@@ -108,28 +113,34 @@ public class Component implements Comparable<Component>, Serializable{
         return queue;
     }
 
+    /**
+     * Les enfants ayant comme parent ce composant.
+     */
     public Set<Component> getChildren() {
-        return children;
+        return Collections.unmodifiableSet(children);
     }
-    public Set<Component> getInheritanceChildren() {
-        Set<Component> children = new HashSet<>();
+
+    /**
+     * La liste de tous les enfants récursivement.
+     */
+    public SortedSet<Component> getInheritanceChildren() {
+        SortedSet<Component> children = new TreeSet<>();
         for (Component c : this.children) {
             children.add(c);
             children.addAll(c.getChildren());
         }
-        return children;
+        return Collections.unmodifiableSortedSet(children);
     }
 
-    public Set<Effect> getInheritanceEffects() {
-        Set<Effect> result = new HashSet<>();
+    /**
+     * La liste des effets concernées et hérités.
+     */
+    public SortedSet<Effect> getInheritanceEffects() {
+        SortedSet<Effect> result = new TreeSet<>();
         for (Component comp : getInheritanceList()) {
             result.addAll(comp.getEffects());
         }
-        return result;
-    }
-
-    public void setChildren(Set<Component> children) {
-        this.children = children;
+        return Collections.unmodifiableSortedSet(result);
     }
 
     @Override
@@ -137,20 +148,66 @@ public class Component implements Comparable<Component>, Serializable{
         return name.compareTo(o.getName());
     }
 
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-
         Component component = (Component) o;
-
         return name != null ? name.equals(component.name) : component.name == null;
-
     }
 
     @Override
     public int hashCode() {
         return name != null ? name.hashCode() : 0;
     }
+
+
+    // METHODS
+
+    /**
+     * Remplace l'id.
+     */
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    /**
+     * Remplace le nom
+     */
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    /**
+     * Remplace le parent
+     */
+    public void setParent(Component parent) {
+        this.parent = parent;
+    }
+
+    /**
+     * Remplace les effets.
+     */
+    private void setEffects(Collection<Effect> effects) {
+        this.effects.clear();
+        this.effects.addAll(effects);
+    }
+
+    /**
+     * Remplace les produits
+     */
+    private void setProducts(Collection<Product> products) {
+        this.products.clear();
+        this.products.addAll(products);
+    }
+
+    /**
+     * Remplace les enfants
+     */
+    private void setChildren(Set<Component> children) {
+        this.children.clear();
+        this.children.addAll(children);
+    }
+
+
 }

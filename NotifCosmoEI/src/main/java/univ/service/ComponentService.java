@@ -70,7 +70,6 @@ public class ComponentService {
         Component newC = new Component();
         newC.setName(component.getName());
         newC.setParent(component.getParent());
-        newC.setEffects(component.getEffects());
         return componentRepository.save(component);
     }
 }
