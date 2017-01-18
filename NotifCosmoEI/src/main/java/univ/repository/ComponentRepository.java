@@ -1,11 +1,14 @@
 package univ.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.transaction.annotation.Transactional;
 import univ.domain.Component;
 
-
-@Transactional
+/**
+ * Repository pour les composants.
+ */
 public interface ComponentRepository extends JpaRepository<Component, Long> {
+    /**
+     * Le composant possédant comme propriété ayant name comme propriété name.
+     */
     Component findByName(String name);
 }

@@ -167,7 +167,7 @@ public class Component implements Comparable<Component>, Serializable{
     /**
      * Remplace l'id.
      */
-    public void setId(long id) {
+    private void setId(long id) {
         this.id = id;
     }
 
