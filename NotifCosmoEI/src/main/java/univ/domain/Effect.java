@@ -154,7 +154,7 @@ public class Effect implements Serializable, Comparable<Effect> {
     /**
      * Met à jour l'utilisateur déclarant de l'effet indésirable.
      *
-     * @@param user Le nouveau utilisateur déclarant.
+     * @param user Le nouveau utilisateur déclarant.
      */
     public void setUser(User user) {
         this.user = user;

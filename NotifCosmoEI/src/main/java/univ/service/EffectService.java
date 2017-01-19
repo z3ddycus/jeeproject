@@ -4,15 +4,21 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
-import univ.domain.*;
+import univ.domain.Effect;
+import univ.domain.Region;
+import univ.domain.User;
 import univ.repository.EffectRepository;
 
-import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+
 /**
- * Le service des effets indésirables.
+ * <b>Service d'effets indésirables.</b>
+ * Fonctionnalités de CRUD des effets indésirables utilisés par l'application.
+ *
+ * @author Yohann Henry - Jeremie Pantin
+ * @version 1.0
  */
 @Service
 public class EffectService {
@@ -34,7 +40,9 @@ public class EffectService {
     // REQUESTS
 
     /**
-     * L'effets indésirables associés à l'id : id.
+     * L'effet indésirable associé à l'id : id.
+     * @param id L'id de l'effet
+     * @return L'effet indésirable possédant cet id.
      */
     public Effect get(long id) {
         return effectRepository.findOne(id);
@@ -42,6 +50,7 @@ public class EffectService {
 
     /**
      * La liste totale des effets.
+     * @return La liste de tous les effets.
      */
     public List<Effect> getAll() {
         return effectRepository.findAll();
@@ -49,6 +58,8 @@ public class EffectService {
 
     /**
      * L'ensemble des effets dont l'utilisateur associé est de la region region.
+     * @param region La région
+     * @return L'ensemble de tous les effets de la region
      */
     public Set<Effect> getByRegion(Region region) {
         return effectRepository.findByRegion(region);
@@ -56,24 +67,16 @@ public class EffectService {
 
     /**
      * L'ensemble de toutes les descriptions existantes.
+     * @return La liste de toutes les descriptions.
      */
     public Set<String> getAllDescription() {
         return effectRepository.findAllDescription();
     }
 
     /**
-     * L'ensemble des effets associés au produit product.
-     */
-    public Set<Effect> getByProduct(Product product) {
-        Set<Effect> result = new HashSet<>();
-        for (Component c : product.getComponents()) {
-            result.addAll(effectRepository.findByComponent(c));
-        }
-        return result;
-    }
-
-    /**
      * L'ensemble des effets associés à l'utilisateur User.
+     * @param user L'utilisateur
+     * @return L'ensemble des effets indésirables liés à l'utilisateur.
      */
     public Set<Effect> getByUser(User user) {
         return effectRepository.findByUser(user);
@@ -83,6 +86,8 @@ public class EffectService {
 
     /**
      * Crée l'effet e et renvoit l'effet correspondant dans le repository.
+     * @param e L'effet
+     * @return l'effet créé
      */
     public Effect create(Effect e) {
         if (e.getUser() == null) {
@@ -94,6 +99,7 @@ public class EffectService {
 
     /**
      * Supprimer l'effet effect du repository.
+     * @param effect l'effet à supprimer
      */
     public void delete(Effect effect) {
         effectRepository.delete(effect);

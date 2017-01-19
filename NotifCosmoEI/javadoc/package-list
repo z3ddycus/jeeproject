@@ -1,0 +1,7 @@
+univ
+univ.config
+univ.controller
+univ.domain
+univ.model
+univ.repository
+univ.service

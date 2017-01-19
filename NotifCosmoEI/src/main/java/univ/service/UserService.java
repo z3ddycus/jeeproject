@@ -10,8 +10,13 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+
 /**
- * Le service des utilisateurs.
+ * <b>Service des utilisateurs.</b>
+ * Fonctionnalités de CRUD des composants utilisés par l'application.
+ *
+ * @author Yohann Henry - Jeremie Pantin
+ * @version 1.0
  */
 @Service
 public class UserService {
@@ -34,6 +39,7 @@ public class UserService {
 
     /**
      * La liste des tous les utilisateurs.
+     * @return La liste de tous les utilisateurs.
      */
     public List<User> getAll() {
         return userRepository.findAll();
@@ -41,6 +47,7 @@ public class UserService {
 
     /**
      * La liste de tous les "nom + prénom" associé à l'id.
+     * @return Une map avec pour clé "nom + ' ' + prenom" et valeur id.
      */
     public Map<String, Long> getAutocompleteValues() {
         Map<String, Long> result = new HashMap<>();
@@ -52,6 +59,8 @@ public class UserService {
 
     /**
      * L'utilisateur possédant l'id id, ou null si aucun.
+     * @param id l'id de l'utilisateur
+     * @return L'utilisateur associé à l'id, null si non existant.
      */
     public User get(long id) {
         return userRepository.findOne(id);
@@ -59,6 +68,8 @@ public class UserService {
 
     /**
      * L'utilisateur associé au mail mail.
+     * @param mail Le mail utilisateur associé.
+     * @return L'utilisateur associé au mail, null si non existant.
      */
     public User findByMail(String mail) {
         return userRepository.findByMail(mail);
@@ -69,6 +80,7 @@ public class UserService {
 
     /**
      * Sauvegarde l'utilisateur dans le repository si aucun role n'est associé USER est associé par défaut.
+     * @param user l'utilisateur à sauvegarder
      */
     public void save(User user) {
         if (user.getRole() == null) {

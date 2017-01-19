@@ -12,7 +12,11 @@ import java.util.Map;
 
 
 /**
- * Le service associé aux composants.
+ * <b>Service de composants.</b>
+ * Fonctionnalités de CRUD des composants utilisés par l'application.
+ *
+ * @author Yohann Henry - Jeremie Pantin
+ * @version 1.0
  */
 @Service
 public class ComponentService {
@@ -30,6 +34,7 @@ public class ComponentService {
 
     /**
      * La liste de tous les composants triés selon l'ordre alphabétique.
+     * @return La liste de tous les composants triés par ordre alphabétique.
      */
     public List<Component> getAll() {
         List<Component> result = componentRepository.findAll();
@@ -38,8 +43,8 @@ public class ComponentService {
     }
 
     /**
-     * La map d'association des clés primaires des composants.
-     * Elle est associe la propriété name à la propriété id. (Ces données sont bijectives)
+     * L'association nom à id.
+     * @return Une map avec pour clé le nom du composant et comme valeur associé l'id du composant.
      */
     public Map<String, Long> getAutocompleteValues() {
         Map<String, Long> result = new HashMap<>();
@@ -50,16 +55,18 @@ public class ComponentService {
     }
 
     /**
-     * Le composant associé à l'id : id.
-     * ou null si aucun n'existe.
+     * Le composant associé à l'argument.
+     * @param id l'id associé.
+     * @return le composant possédant comme champ id, id. null sinon.
      */
     public Component get(long id) {
         return componentRepository.findOne(id);
     }
 
     /**
-     * Le composant associé à la propriété name valant name.
-     * ou null si aucun n'existe.
+     * Le composant associé à l'argument.
+     * @param name le nom associé.
+     * @return le composant possédant comme champ name, name. null sinon.
      */
     public Component get(String name) {
         return componentRepository.findByName(name);
@@ -68,15 +75,17 @@ public class ComponentService {
     // METHODS
 
     /**
-     * Supprime le composant d'id e.
+     * Supprime un composant.
+     * @param e l'id du composant a supprimé.
      */
     public void delete(long e) {
         componentRepository.delete(e);
     }
 
     /**
-     * Met à jour component dans le repository.
-     * @Pre : component.getId() != null
+     * Met à jour un composant.
+     * @param component Le composant a mettre un jour
+     * @return Le composant mis à jour.
      */
     public Component update(Component component) {
         Component c = componentRepository.findOne(component.getId());
@@ -89,8 +98,9 @@ public class ComponentService {
     }
 
     /**
-     * Crée un composant component dans le repository.
-     * Renvoit le component lié au repo ou null si une erreur survient.
+     * Crée un nouveau composant sur la base de component.
+     * @param component Le composant à créer
+     * @return Le composant créé.
      */
     public Component create(Component component) {
         if (component.getName() == null) {

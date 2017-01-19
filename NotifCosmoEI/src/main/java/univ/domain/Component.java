@@ -141,6 +141,8 @@ public class Component implements Comparable<Component>, Serializable{
 
     /**
      * La liste de tous les enfants récursivement.
+     *
+     * @return Les enfants de ce composant et leurs enfants récursivement.
      */
     public SortedSet<Component> getInheritanceChildren() {
         SortedSet<Component> children = new TreeSet<>();
@@ -154,7 +156,7 @@ public class Component implements Comparable<Component>, Serializable{
     /**
      * Retourne la liste des effets concernés et hérités.
      *
-     * @return Les effets cocnernés et hérités.
+     * @return Les effets concernés et hérités.
      */
     public SortedSet<Effect> getInheritanceEffects() {
         SortedSet<Effect> result = new TreeSet<>();

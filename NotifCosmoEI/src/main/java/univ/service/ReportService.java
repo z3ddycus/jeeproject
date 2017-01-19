@@ -10,8 +10,13 @@ import univ.model.Report;
 
 import java.util.*;
 
+
 /**
- * Le service des rapports d'alertes.
+ * <b>Service de rapports d'alertes.</b>
+ * Contruction des différents rapports d'alertes
+ *
+ * @author Yohann Henry - Jeremie Pantin
+ * @version 1.0
  */
 @Service
 public class ReportService {
@@ -47,6 +52,8 @@ public class ReportService {
 
     /**
      * Récupère les rapports associés à un produit triés par poids décroissants.
+     * @param p Le product
+     * @return La collection des report associé au produit p
      */
     public Collection<Report> getReports(Product p) {
         return getReportsByDescription(p.getEffects());
@@ -54,6 +61,8 @@ public class ReportService {
 
     /**
      * Récupère les rapports associés à un composant triés par poids décroissants.
+     * @param c Le composant
+     * @return La collection des report associé au composant c
      */
     public Collection<Report> getReports(Component c) {
         return getReportsByDescription(c.getInheritanceEffects());
@@ -61,13 +70,16 @@ public class ReportService {
 
     /**
      * Récupère les rapports associés à une région triés par poids décroissants.
+     * @param region La région
+     * @return La collection des report associé à la région.
      */
     public Collection<Report> getReportsByRegion(Region region) {
         return getReportsByDescription(effectService.getByRegion(region));
     }
 
     /**
-     * Récupère tous les rapports associés aux noms de composants.
+     * La liste tous les reports séparés par composant.
+     * @return La liste tous les reports séparés par composant.
      */
     public SortedMap<Report, Set<String>> getReportsWithComponentNames() {
         SortedMap<Report, Set<String>> result = new TreeMap<>();
@@ -86,7 +98,9 @@ public class ReportService {
     }
 
     /**
-     * Modifie un rapport d'alerte selon un rapport.
+     * Actualise un rapport d'alerte avec un effet.
+     * @param report le rapport a mettre à jour
+     * @param effect l'effet servant a mettre à jour
      */
     private void actualizeReport(Report report, Effect effect) {
         if (report.getLastDeclare() == null || report.getLastDeclare().before(effect.getDate())) {
@@ -101,7 +115,9 @@ public class ReportService {
     }
 
     /**
-     * Construit un rapport selon une liste d'effets indésirables.
+     * La collection des rapports d'alertes générés selon une collection d'effets indésirables.
+     * @param effects Les effets servant à la génération
+     * @return La liste des rapports générés.
      */
     private Collection<Report> getReportsByDescription(Collection<Effect> effects) {
         Map<String, Report> descriptionToReport = new HashMap<>();

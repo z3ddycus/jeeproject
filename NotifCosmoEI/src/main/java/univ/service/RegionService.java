@@ -7,8 +7,13 @@ import univ.repository.RegionRepository;
 
 import java.util.Collection;
 
+
 /**
- * Le service des régions.
+ * <b>Service de régions.</b>
+ * Fonctionnalités de CRUD des régions utilisés par l'application.
+ *
+ * @author Yohann Henry - Jeremie Pantin
+ * @version 1.0
  */
 @Service
 public class RegionService {
@@ -24,7 +29,8 @@ public class RegionService {
     // REQUESTS
 
     /**
-     * La liste de toutes les régions.
+     * La collection de toutes les régions.
+     * @return La collection de toutes les régions.
      */
     public Collection<Region> getAll() {
         return regionRepository.findAll();
@@ -32,6 +38,8 @@ public class RegionService {
 
     /**
      * La région associé à l'id id.
+     * @param id L'id associé
+     * @return La région associé à l'id.
      */
     public Region get(long id) {
         return regionRepository.findOne(id);
