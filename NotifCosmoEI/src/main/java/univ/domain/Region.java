@@ -5,7 +5,13 @@ import javax.persistence.*;
 import java.io.Serializable;
 
 /**
- * Une région.
+ * <b>Entité représentant une région.</b>
+ *
+ * Elle est identifiée par un nom. Le principe de mettre ces informations en
+ * base est de permettre au système d'évoluer sur le temps.
+ *
+ * @author Yohann Henry - Jeremie Pantin
+ * @version 1.0
  */
 @Entity
 public class Region implements Serializable {
@@ -26,14 +32,18 @@ public class Region implements Serializable {
     // REQUESTS
 
     /**
-     * L'id.
+     * Retourne l'Id de la région.
+     *
+     * @return L'identifiant de la région.
      */
     public Long getId() {
         return id;
     }
 
     /**
-     * Le nom.
+     * Retourne le nom de la région.
+     *
+     * @return Le nom de la région.
      */
     public String getName() {
         return name;
@@ -42,14 +52,18 @@ public class Region implements Serializable {
     // METHODS
 
     /**
-     * Setter de l'id.
+     * Met à jour l'Id de la région.
+     *
+     * @param id Le nouvel Id.
      */
     private void setId(Long id) {
         this.id = id;
     }
 
     /**
-     * Setter du nom.
+     * Met à jour le nom de la région
+     *
+     * @param name Le nouveau Nom.
      */
     public void setName(String name) {
         this.name = name;

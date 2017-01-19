@@ -4,7 +4,12 @@ import javax.persistence.*;
 import java.io.Serializable;
 
 /**
- * Un travail.
+ * <b>Entité représentant une profession.</b>
+ *
+ * Il est identifié par un nom et son poids.
+ *
+ * @author Yohann Henry - Jeremie Pantin
+ * @version 1.0
  */
 @Entity
 public class Work implements Serializable{
@@ -32,21 +37,27 @@ public class Work implements Serializable{
     // ATTRIBUTES
 
     /**
-     * L'id.
+     * Retourne l'Id de la profession.
+     *
+     * @return L'identifiant de la profession.
      */
     public Long getId() {
         return id;
     }
 
     /**
-     * Le nom.
+     * Retourne le nom de la profession.
+     *
+     * @return Le nom de la profession.
      */
     public String getName() {
         return name;
     }
 
     /**
-     * Le poids.
+     * Retourne le poids de la profession.
+     *
+     * @return Le poids de la profession.
      */
     public float getWeight() {
         return weight;
@@ -60,21 +71,27 @@ public class Work implements Serializable{
     // METHODS
 
     /**
-     * Setter de l'id.
+     * Met à jour l'Id de la profession.
+     *
+     * @param id Le nouvel Id.
      */
     private void setId(Long id) {
         this.id = id;
     }
 
     /**
-     * Setter du nom.
+     * Met à jour le nouveau nom de la profession.
+     *
+     * @param name Le nouveau nom.
      */
     public void setName(String name) {
         this.name = name;
     }
 
     /**
-     * Setter du poids.
+     * Met à jour le nouveau poids de la profession.
+     *
+     * @param weight Le nouveau poids.
      */
     public void setWeight(float weight) {
         this.weight = weight;

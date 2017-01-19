@@ -5,7 +5,13 @@ import java.io.Serializable;
 import java.util.Date;
 
 /**
- * Les effets indésirables.
+ * <b>Entité représentant un effet indésirable.</b>
+ *
+ * Il est identifié par une description, une date de déclaration, un composant
+ * auquel il est associé et le déclarant.
+ *
+ * @author Yohann Henry - Jeremie Pantin
+ * @version 1.0
  */
 @Entity
 public class Effect implements Serializable, Comparable<Effect> {
@@ -42,35 +48,45 @@ public class Effect implements Serializable, Comparable<Effect> {
     // REQUESTS
 
     /**
-     * L'id.
+     * Retourne l'Id de l'effet indésirable.
+     *
+     * @return L'identifiant de l'effet indésirable.
      */
     public long getId() {
         return id;
     }
 
     /**
-     * L'utilisateur déclarant.
+     * Retourne l'utilisateur déclarant.
+     *
+     * @return L'identifiant du déclarant
      */
     public User getUser() {
         return user;
     }
 
     /**
-     * La date de déclaration.
+     * Retourne la date de déclaration.
+     *
+     * @return La date de déclaration.
      */
     public Date getDate() {
         return date;
     }
 
     /**
-     * La description.
+     * Retourne la description.
+     *
+     * @return La description de l'effet indésirable.
      */
     public String getDescription() {
         return description;
     }
 
     /**
-     * Le composant associé.
+     * Retourne le composant associé.
+     *
+     * @return Le composant de l'effet indésirable.
      */
     public Component getComponent() {
         return component;
@@ -109,35 +125,45 @@ public class Effect implements Serializable, Comparable<Effect> {
     // METHODS
 
     /**
-     * Setter du component.
+     * Met à jour le composant de l'effet indésirable.
+     *
+     * @param component Le nouveau composant.
      */
     public void setComponent(Component component) {
         this.component = component;
     }
 
     /**
-     * Setter de la description.
+     * Met à jour la description de l'effet indésirable.
+     *
+     * @param description La description de l'effet indésirable.
      */
     public void setDescription(String description) {
         this.description = description;
     }
 
     /**
-     * Setter de la date.
+     * Met à jour la date de l'effet indésirable.
+     *
+     * @param date La nouvelle date.
      */
     public void setDate(Date date) {
         this.date = date;
     }
 
     /**
-     * Setter de l'utilisateur.
+     * Met à jour l'utilisateur déclarant de l'effet indésirable.
+     *
+     * @@param user Le nouveau utilisateur déclarant.
      */
     public void setUser(User user) {
         this.user = user;
     }
 
     /**
-     * Setter de l'id.
+     * Met à jour l'Id de l'effet indésirable.
+     *
+     * @param id Le nouvel Id.
      */
     private void setId(long id) {
         this.id = id;

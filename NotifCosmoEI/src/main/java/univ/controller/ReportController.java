@@ -10,15 +10,35 @@ import univ.domain.Region;
 import univ.service.RegionService;
 import univ.service.ReportService;
 
+/**
+ * <b>Contrôleur d'un rapport d'effets.</b>
+ *
+ * Définit les actions à suivre selon la requête CRUD invoquée.
+ *
+ * @author Yohann Henry - Jeremie Pantin
+ * @version 1.0
+ */
 @Controller
 @RequestMapping("/report")
 public class ReportController {
+    /**
+     * Service de rapport.
+     */
     @Autowired
     private ReportService reportService;
-
+    /**
+     * Service de région.
+     */
     @Autowired
     private RegionService regionService;
 
+    /**
+     * Lors d'une requête <i>GET</i>, retourne l'intégralité des rapports d'effets
+     * indésirables selon la région mentionnée.
+     * @param model Le modèle de la requête.
+     * @param id L'identifiant de la région.
+     * @return La réponse de la requête.
+     */
     @RequestMapping(value="/", method= RequestMethod.GET)
     public String getAll(Model model, @RequestParam(value="region", defaultValue = "-1") String id) {
         model.addAttribute("regions", regionService.getAll());

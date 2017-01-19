@@ -6,7 +6,12 @@ import java.io.Serializable;
 import java.util.*;
 
 /**
- * Un composant.
+ * <b>Entité représentant un composant.</b>
+ *
+ * Il est identifié par un nom, sa composition, ses parents et ses enfants.
+ *
+ * @author Yohann Henry - Jeremie Pantin
+ * @version 1.0
  */
 @Entity
 public class Component implements Comparable<Component>, Serializable{
@@ -54,7 +59,7 @@ public class Component implements Comparable<Component>, Serializable{
     // PREACTION
 
     /**
-     * Supprime les composants des produits.
+     * Suppression des composants des produits.
      */
     @PreRemove
     private void deletingEntity() {
@@ -66,42 +71,54 @@ public class Component implements Comparable<Component>, Serializable{
     // REQUESTS
 
     /**
-     * L'id.
+     * Retourne l'Id du composant.
+     *
+     * @return L'identifiant du composant.
      */
     public long getId() {
         return id;
     }
 
     /**
-     * Le nom.
+     * Retourne le nom du composant.
+     *
+     * @return Le nom du composant.
      */
     public String getName() {
         return name;
     }
 
     /**
-     * Le parent
+     *
+     *
+     * @return Le parent du composant.
      */
     public Component getParent() {
         return parent;
     }
 
     /**
-     * Les effets concernant directement le composant.
+     * Retourne les effets concernant directement le composant.
+     *
+     * @return Les effets concernant le composant.
      */
     public Set<Effect> getEffects() {
         return Collections.synchronizedSet(effects);
     }
 
     /**
-     * Les produits contenant le composant.
+     * Retourne les produits contenant le composant.
+     *
+     * @return Les produits dans lesquels le composant est contenu.
      */
     public Set<Product> getProducts() {
         return Collections.synchronizedSet(products);
     }
 
     /**
-     * La liste des parents en partant de la racine.
+     * Retourne la liste des parents en partant de la racine.
+     *
+     * @return La liste des parents.
      */
     public List<Component> getInheritanceList() {
         LinkedList<Component> queue = new LinkedList<>();
@@ -114,7 +131,9 @@ public class Component implements Comparable<Component>, Serializable{
     }
 
     /**
-     * Les enfants ayant comme parent ce composant.
+     * Retourne les enfants ayant comme parent ce composant.
+     *
+     * @return Les enfants de ce composant.
      */
     public Set<Component> getChildren() {
         return Collections.unmodifiableSet(children);
@@ -133,7 +152,9 @@ public class Component implements Comparable<Component>, Serializable{
     }
 
     /**
-     * La liste des effets concernées et hérités.
+     * Retourne la liste des effets concernés et hérités.
+     *
+     * @return Les effets cocnernés et hérités.
      */
     public SortedSet<Effect> getInheritanceEffects() {
         SortedSet<Effect> result = new TreeSet<>();
@@ -165,28 +186,36 @@ public class Component implements Comparable<Component>, Serializable{
     // METHODS
 
     /**
-     * Remplace l'id.
+     * Met à jour l'Id du composant.
+     *
+     * @param id Le nouvel Id.
      */
     private void setId(long id) {
         this.id = id;
     }
 
     /**
-     * Remplace le nom
+     * Met à jour le nom du composant
+     *
+     * @param name Le nouveau Nom.
      */
     public void setName(String name) {
         this.name = name;
     }
 
     /**
-     * Remplace le parent
+     * Met à jour le parent du composant.
+     *
+     * @param parent Le nouveau composant parent.
      */
     public void setParent(Component parent) {
         this.parent = parent;
     }
 
     /**
-     * Remplace les effets.
+     * Met à jour les effets du composant.
+     *
+     * @param effects Les nouveaux effets du composant.
      */
     private void setEffects(Collection<Effect> effects) {
         this.effects.clear();
@@ -194,7 +223,9 @@ public class Component implements Comparable<Component>, Serializable{
     }
 
     /**
-     * Remplace les produits
+     * Met à jour les produits du composant.
+     *
+     * @param products Les nouveaux produits.
      */
     private void setProducts(Collection<Product> products) {
         this.products.clear();
@@ -202,12 +233,12 @@ public class Component implements Comparable<Component>, Serializable{
     }
 
     /**
-     * Remplace les enfants
+     * Met à jour les enfants du composant.
+     *
+     * @param children les nouveaux enfants.
      */
     private void setChildren(Set<Component> children) {
         this.children.clear();
         this.children.addAll(children);
     }
-
-
 }

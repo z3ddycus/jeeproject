@@ -9,7 +9,12 @@ import java.util.HashSet;
 import java.util.Set;
 
 /**
- * un rapport d'effets.
+ * <b>Modèle de rapport d'effets.</b>
+ *
+ * Représentation d'un rapport d'effets.
+ *
+ * @author Yohann Henry - Jeremie Pantin
+ * @version 1.0
  */
 public class Report implements Comparable<Report> {
     /**
@@ -45,7 +50,8 @@ public class Report implements Comparable<Report> {
     // CONSTRUCTOR
 
     /**
-     * Un rapport.
+     * Construction d'un rapport à partir d'une description.
+     * @param description La description du rapport.
      */
     public Report(String description) {
         this.description = description;
@@ -54,42 +60,54 @@ public class Report implements Comparable<Report> {
     // REQUESTS
 
     /**
-     * La description.
+     * Retourne la description du rapport.
+     *
+     * @return La description du rapport.
      */
     public String getDescription() {
         return description;
     }
 
     /**
-     * Le poids.
+     * Retourne le poids du rapport.
+     *
+     * @return Le poids du rapport.
      */
     public double getWeight() {
         return weight;
     }
 
     /**
-     * Les régions.
+     * Retourne les régions concernant le rapport.
+     *
+     * @return Les régions concernant le rapport.
      */
     public Set<Region> getRegions() {
         return regions;
     }
 
     /**
-     * Date de la dernière déclaration.
+     * Retourne la date de la dernière déclaration.
+     *
+     * @return La date de déclaration.
      */
     public Date getLastDeclare() {
         return lastDeclare;
     }
 
     /**
-     * Date de la première déclaration.
+     * Retourne la date de la première déclaration.
+     *
+     * @return La date de déclaration.
      */
     public Date getFirstDeclare() {
         return firstDeclare;
     }
 
     /**
-     * L'utilisateur ayant déclaré pour la première fois l'effet.
+     * Retourne l'utilisateur ayant déclaré pour la première fois l'effet.
+     *
+     * @return L'utilisateur déclarant.
      */
     public User getUserDeclare() {
         return userDeclare;
@@ -108,42 +126,54 @@ public class Report implements Comparable<Report> {
     // METHODS
 
     /**
-     * Setter de la description.
+     * Met à jour la description du rapport.
+     *
+     * @param description La nouvelle description.
      */
     public void setDescription(String description) {
         this.description = description;
     }
 
     /**
-     * Setter du poids.
+     * Met à jour le poids du rapport.
+     *
+     * @param weight Le nouveau poids.
      */
     public void setWeight(double weight) {
         this.weight = weight;
     }
 
     /**
-     * Setter des régions.
+     * Met à jour les régions du rapport.
+     *
+     * @param regions Les nouvelles régions.
      */
     public void setRegions(Set<Region> regions) {
         this.regions = regions;
     }
 
     /**
-     * Setter de la date de dernière déclaration.
+     * Met à jour la dernière date de déclaration.
+     *
+     * @param lastDeclare La nouvelle date.
      */
     public void setLastDeclare(Date lastDeclare) {
         this.lastDeclare = lastDeclare;
     }
 
     /**
-     * Setter de la date de première déclaration.
+     * Met à jour la première date de déclaration.
+     *
+     * @param firstDeclare La nouvelle date.
      */
     public void setFirstDeclare(Date firstDeclare) {
         this.firstDeclare = firstDeclare;
     }
 
     /**
-     * Setter de l'utilisateur déclarant.
+     * Met à jour l'utilisateur déclarant du rapport.
+     *
+     * @param userDeclare Le nouveau déclarant.
      */
     public void setUserDeclare(User userDeclare) {
         this.userDeclare = userDeclare;

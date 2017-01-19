@@ -3,6 +3,16 @@ package univ.domain;
 import javax.persistence.*;
 import java.io.Serializable;
 
+
+/**
+ * <b>Entité représentant un utilisateur.</b>
+ *
+ * Il est identifié par un nom, un prénom, un mail, une région, un rôle et un
+ * grade.
+ *
+ * @author Yohann Henry - Jeremie Pantin
+ * @version 1.0
+ */
 @Entity
 @Table(name = "user_id")
 public class User implements Serializable {
@@ -58,49 +68,63 @@ public class User implements Serializable {
     // REQUESTS
 
     /**
-     * La region.
+     * Retourne la région de l'utilisateur.
+     *
+     * @return La région de l'utilisateur.
      */
     public Region getRegion() {
         return region;
     }
 
     /**
-     * Le mail.
+     * Retourne le mail de l'utilisateur.
+     *
+     * @return Le mail de l'utilisateur.
      */
     public String getMail() {
         return mail;
     }
 
     /**
-     * Le prénom.
+     * Retourne le prénom de l'utilisateur.
+     *
+     * @return Le prénom de l'utilisateur.
      */
     public String getFirstName() {
         return firstName;
     }
 
     /**
-     * Le nom.
+     * Retourne le nom de l'utilisateur.
+     *
+     * @return Le nom de l'utilisateur.
      */
     public String getLastName() {
         return lastName;
     }
 
     /**
-     * L'id.
+     * Retourne l'Id de l'utilisateur.
+     *
+     * @return L'identifiant de l'utilisateur.
      */
     public Long getId() {
         return id;
     }
 
     /**
-     * Le password.
+     * Retourne le mot de passe de l'utilisateur.
+     *
+     * @return Le mot de passe de l'utilisateur.
      */
     public String getPassword() {
         return password;
     }
 
     /**
-     * Le role.
+     * Retourne le rôle de l'utilisateur.
+     *
+     * @return Le rôle de l'utilisateur.
      */
     @ManyToOne
     public Role getRole() {
@@ -108,7 +132,9 @@ public class User implements Serializable {
     }
 
     /**
-     * Le travail.
+     * Retourne la profession de l'utilisateur.
+     *
+     * @return La profession de l'utilisateur.
      */
     @ManyToOne
     public Work getWork() {
@@ -132,56 +158,72 @@ public class User implements Serializable {
     // METHODS
 
     /**
-     * Setter de la région.
+     * Met à jour la région de l'utilisateur.
+     *
+     * @param region La nouvelle région.
      */
     public void setRegion(Region region) {
         this.region = region;
     }
 
     /**
-     * Setter du mail.
+     * Met à jour le mail de l'utilisateur.
+     *
+     * @param mail Le nouveau mail.
      */
     public void setMail(String mail) {
         this.mail = mail;
     }
 
     /**
-     * Setter du prénom.
+     * Met à jour le prénom de l'utilisateur.
+     *
+     * @param firstName Le nouveau prénom.
      */
     public void setFirstName(String firstName) {
         this.firstName = firstName;
     }
 
     /**
-     * Setter du nom.
+     * Met à jour le nom de l'utilisateur.
+     *
+     * @param lastName Le nouveau nom.
      */
     public void setLastName(String lastName) {
         this.lastName = lastName;
     }
 
     /**
-     * Setter de l'id.
+     * Met à jour l'Id de l'utilisateur.
+     *
+     * @param id Le nouvel Id.
      */
     private void setId(Long id) {
         this.id = id;
     }
 
     /**
-     * Setter du password.
+     * Met à jour le mot de passe de l'utilisateur.
+     *
+     * @param password Le nouveau mot de passe.
      */
     public void setPassword(String password) {
         this.password = password;
     }
 
     /**
-     * Setter du role.
+     * Met à jour le role de l'utilisateur.
+     *
+     * @param role Le nouveau role.
      */
     public void setRole(Role role) {
         this.role = role;
     }
 
     /**
-     * Setter du travail.
+     * Met à jour la profession de l'utilisateur.
+     *
+     * @param work La nouvelle profession.
      */
     public void setWork(Work work) {
         this.work = work;

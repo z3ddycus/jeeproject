@@ -7,6 +7,14 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.TreeSet;
 
+/**
+ * <b>Entité représentant un produit.</b>
+ *
+ * Il est identifié par un nom et une composaition.
+ *
+ * @author Yohann Henry - Jeremie Pantin
+ * @version 1.0
+ */
 @Entity
 public class Product implements Comparable<Product>, Serializable {
 
@@ -34,28 +42,36 @@ public class Product implements Comparable<Product>, Serializable {
     // REQUESTS
 
     /**
-     * L'id.
+     * Retourne l'Id du produit.
+     *
+     * @return L'identifiant du produit.
      */
     public long getId() {
         return id;
     }
 
     /**
-     * Le nom.
+     * Retourne le nom du produit.
+     *
+     * @return Le nom du produit.
      */
     public String getName() {
         return name;
     }
 
     /**
-     * Les composants associées.
+     * Retourne les composants concernant directement le produit.
+     *
+     * @return Les composants concernant le produit.
      */
     public Set<Component> getComponents() {
         return components;
     }
 
     /**
-     * Les effets associés.
+     * Retourne les effets concernant directement le produit.
+     *
+     * @return Les effets concernant le produit.
      */
     public Set<Effect> getEffects() {
         Set result = new HashSet();
@@ -88,21 +104,27 @@ public class Product implements Comparable<Product>, Serializable {
     // METHODS
 
     /**
-     * Setter de l'id.
+     * Met à jour l'Id du produit.
+     *
+     * @param id Le nouvel Id.
      */
     private void setId(long id) {
         this.id = id;
     }
 
     /**
-     * Setter du nom.
+     * Met à jour le nom du produit
+     *
+     * @param name Le nouveau Nom.
      */
     public void setName(String name) {
         this.name = name;
     }
 
     /**
-     * Setter des components.
+     * Met à jour les composants du produit.
+     *
+     * @param components Les nouveaux composants.
      */
     public void setComponents(Collection<Component> components) {
         this.components.clear();
