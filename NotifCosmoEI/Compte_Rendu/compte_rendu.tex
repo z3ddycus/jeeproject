@@ -68,7 +68,7 @@
 {\normalfont\small\sffamily\bfseries}}
 
 \renewcommand\headrulewidth{1pt}
-\fancyhead[L]{\includegraphics[height=1cm]{univ.png}}
+\fancyhead[L]{\includegraphics[height=1cm]{resources/univ.png}}
 \fancyhead[C]{Compte Rendu\\ \color{grisP}\texttt{Projet JEE}}
 \fancyfoot[C]{\texttt{\thepage/\pageref{LastPage}}}
 \makeatletter
@@ -128,7 +128,7 @@ JavaEE est une plate-forme fortement orientée serveur ayant pour but de dévelo
 
 \begin{figure}[h]
 \centering
-\includegraphics[scale=.7]{spring_architecture.png}
+\includegraphics[scale=.7]{resources/spring_architecture.png}
 \caption{Architecture du Framework Spring}
 \end{figure}
 
@@ -145,7 +145,7 @@ Dans cette section sera présenté l'intégralité des technologies utilisées d
 
 \begin{wrapfigure}{R}{0.15\textwidth}
 \centering
-\includegraphics[width=0.14\textwidth]{spring_logo.png}
+\includegraphics[width=0.14\textwidth]{resources/spring_logo.png}
 \end{wrapfigure}
 
 Comme décrit plus haut nous utiliserons le framework Spring afin de développer notre application. Ce framework permet la liaison avec de nombreux outils complémentaires qui ont étés également vus pendant le cursus de deuxième année de master.\\
@@ -155,7 +155,7 @@ Nous allons donc lister les principaux outils de développement utilisés par ce
 
 \begin{wrapfigure}{R}{0.25\textwidth}
 \centering
-\includegraphics[width=0.24\textwidth]{gradle.png}
+\includegraphics[width=0.24\textwidth]{resources/gradle.png}
 \end{wrapfigure}
 
 Gradle est un moteur de production permettant de construire des projets Java. Il allie \texttt{Apache Maven} et \texttt{Apache Ant} pour en prendre uniquement leurs atouts. Ainsi il permet d'écrire des tâches de \texttt{build} dans un fichier \texttt{build} en utilisant le langage Groovy. Il est alors possible d'importer des tâches standards qui permettent de construire des programmes utilisant un ou plusieurs langages, Java dans notre cas.
@@ -164,7 +164,7 @@ Gradle est un moteur de production permettant de construire des projets Java. Il
 
 \begin{wrapfigure}{R}{0.25\textwidth}
 \centering
-\includegraphics[width=0.24\textwidth]{maven.png}
+\includegraphics[width=0.24\textwidth]{resources/maven.png}
 \end{wrapfigure}
 
 Apache Maven est un outil pour la gestion et l'automatisation de production des projets Java. Dans notre cas il sera employé pour ses conventions simples et efficaces, de part Gradle. En effet Maven impose une arborescence et une énumération des fichiers du projet selon le concept de Convention plutôt que configuration.
@@ -172,7 +172,7 @@ Apache Maven est un outil pour la gestion et l'automatisation de production des 
 \subsubsection{Ant}
 \begin{wrapfigure}{R}{0.15\textwidth}
 \centering
-\includegraphics[width=0.14\textwidth]{ant.png}
+\includegraphics[width=0.14\textwidth]{resources/ant.png}
 \end{wrapfigure}
 
 Apache Ant est un logiciel visant à automatiser les opérations répétitives du développement de logiciel telles que la compilation, la génération de documents ou l'archivage. Utilisé par Gradle, sa tâche est de permettre la compilation, la génération, l'exécution et l'archivage sous forme distribuable (JAR, ...). Il faut savoir qu'il est très portable et flexible dans la description des tâches de construction.\\
@@ -181,7 +181,7 @@ C'est donc un indispensable pour fournir une application exécutable et portable
 \subsubsection{Spring Boot 1.4.2}
 \begin{wrapfigure}{R}{0.15\textwidth}
 \centering
-\includegraphics[width=0.14\textwidth]{spring_boot.png}
+\includegraphics[width=0.14\textwidth]{resources/spring_boot.png}
 \end{wrapfigure}
 
 Spring Boot permet l'initialisation de nombreuses configurations automatisées :
@@ -206,7 +206,7 @@ En outre, Spring Boot maintient l'intégralité de ces opérations pour nous.
 \subsubsection{Spring Security}
 \begin{wrapfigure}{R}{0.15\textwidth}
 \centering
-\includegraphics[width=0.14\textwidth]{spring_security.png}
+\includegraphics[width=0.14\textwidth]{resources/spring_security.png}
 \end{wrapfigure}
 
 Spring Security offre des services de sécurité complets pour des applications basées sur JavaEE. Il s'intègre nativement à un projet Spring et permet de mettre notamment l'accent sur l'authentification et l'autorisation, entre autre le contrôle d'accès, et bien d'autres. Il est utilisé ici pour conserver un très haut niveau de sécurité au sein de la spécification des Servlet JavaEE et de la spécification des EJB.
@@ -217,14 +217,14 @@ Spring propose l'élaboration d'une application sur l'architecture Model View Co
 \subsection{Tomcat}
 \begin{wrapfigure}{R}{0.15\textwidth}
 \centering
-\includegraphics[width=0.14\textwidth]{tomcat.png}
+\includegraphics[width=0.14\textwidth]{resources/tomcat.png}
 \end{wrapfigure}
 Apache Tomcat est un conteneur web libre de servlets et JSP JavaEE. C'est un serveur HTTP, il répond alors parfaitement à la problématique du projet. Nous l'utiliserons et l'intégrerons directement en tant que serveur embarqué sur notre application par le biais de Spring (notamment par l'emploi du Spring Boot vu précédemment).
 
 \subsection{Thymeleaf 2.1.2}
 \begin{wrapfigure}{R}{0.15\textwidth}
 \centering
-\includegraphics[width=0.14\textwidth]{thymeleaf.png}
+\includegraphics[width=0.14\textwidth]{resources/thymeleaf.png}
 \end{wrapfigure}
 
 Thymeleaf est un moteur de template utilisé dans un environnement web pour la génération de vue pour les applications web MVC. Nous justifions sa présence par sa simplicité d'utilisation et son extension facilité. De plus il répond aux besoins soulevés par le modèle MVC.\\
@@ -233,7 +233,7 @@ Un autre argument vient conforter ce choix, c'est sa grande popularité dans la 
 \subsection{PostgreSQL 9.1}
 \begin{wrapfigure}{R}{0.15\textwidth}
 \centering
-\includegraphics[width=0.14\textwidth]{postgresql.png}
+\includegraphics[width=0.14\textwidth]{resources/postgresql.png}
 \end{wrapfigure}
 Postegre SQL est un système de Gestion de Base de Données relationnelle et objet (SGBD). C'est un outil libre qui s'est forgé une réputation sur son comportement stable et ses possibilités de programmation étendues. Il possède également de nombreuses interfaces utilisateurs permettant le debug rapide et l'accessibilité facilitée.\\
 Encore une fois il sera déployé par l'intermédiaire de Spring Boot et quelques pré-requis seront nécessaire (cf. Guide d'utilisation).
@@ -241,7 +241,7 @@ Encore une fois il sera déployé par l'intermédiaire de Spring Boot et quelque
 \subsection{IntelliJ 2016.3}
 \begin{wrapfigure}{R}{0.15\textwidth}
 \centering
-\includegraphics[width=0.14\textwidth]{intellij.png}
+\includegraphics[width=0.14\textwidth]{resources/intellij.png}
 \end{wrapfigure}
 Pour le développement du projet nous avons utilisé l'environnement Intellij IDEA. En effet celui-ci est complet et est utilisé dans de nombreuses entreprises spécialisées dans les applications web. Ses fonctionnalités en JavaEE sont très attractives et comprenne des greffons sur chacun des outils vus plus haut (notamment Spring, PostgreSQL et Tomcat).
 
@@ -252,7 +252,7 @@ Pour le développement du projet nous avons utilisé l'environnement Intellij ID
 \section{Vue d'ensemble de l'architecture du projet Spring}
 \begin{figure}[h]
 \centering
-\includegraphics[scale=.8]{diag_architecture.png}
+\includegraphics[scale=.8]{resources/diag_architecture.png}
 \caption{Vue d'ensemble}
 \end{figure}
 
@@ -310,7 +310,7 @@ Dans ce fichier nous trouvons facilement l'url de connexion à la base de donné
 \subsection{Diagramme relationnel}
 \begin{figure}[h]
 \centering
-\includegraphics[scale=.55]{diag_bdd.png}
+\includegraphics[scale=.55]{resources/diag_bdd.png}
 \caption{Diagramme Relationnel}
 \end{figure}
 
@@ -325,7 +325,7 @@ La notion centrale dans Spring-Data-JPA est la notion de Repository. Un reposito
 
 \begin{figure}[h]
 \centering
-\includegraphics[scale=.8]{diag_repos.png}
+\includegraphics[scale=.8]{resources/diag_repos.png}
 \caption{Liste des différents Repository}
 \end{figure}
 
@@ -337,7 +337,7 @@ Enfin, un exemple de déclaration de repository :
 
 \begin{figure}[h]
 \centering
-\includegraphics[scale=.8]{exemple_repos.png}
+\includegraphics[scale=.8]{resources/exemple_repos.png}
 \caption{Exemple de Repository}
 \end{figure}
 
@@ -348,7 +348,7 @@ Dans un projet Spring, une entité se réfère étroitement à un entité que no
 
 \begin{figure}[h]
 \centering
-\includegraphics[scale=.56]{exemple_beans.png}
+\includegraphics[scale=.56]{resources/exemple_beans.png}
 \caption{Exemple d'Entity}
 \end{figure}
 
@@ -359,7 +359,7 @@ Dans un projet Spring, une entité se réfère étroitement à un entité que no
 \subsection{Diagramme des EJB}
 \begin{figure}[h]
 \centering
-\includegraphics[scale=.4]{diag_beans.png}
+\includegraphics[scale=.4]{resources/diag_beans.png}
 \caption{Liste des différents Repository}
 \end{figure}
 
@@ -375,7 +375,7 @@ Il est à noter également qu'un service à pour but d'être réutilisé par la 
 \subsection{Diagramme de Services}
 \begin{figure}[h]
 \centering
-\includegraphics[scale=.3]{diag_service.png}
+\includegraphics[scale=.3]{resources/diag_service.png}
 \caption{Liste des différents Repository}
 \end{figure}
 
@@ -384,7 +384,7 @@ Dans le but de gérer la sécurité au sein de notre application nous avons déc
 
 \begin{figure}[h]
 \centering
-\includegraphics[scale=.3]{example_secur.png}
+\includegraphics[scale=.3]{resources/example_secur.png}
 \caption{Liste des différents Repository}
 \end{figure}
 

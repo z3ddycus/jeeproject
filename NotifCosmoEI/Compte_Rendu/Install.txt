@@ -1,0 +1,11 @@
+1. Configurer la base de données :
+
+Dans le fichier /NotifCosmoEI/src/main/resources/application.properties,
+renseignez les identifiants de connexions pour la base de données postgres:
+
+spring.datasource.url= jdbc:postgresql://localhost:5432/jeedb
+spring.datasource.username= postgres
+spring.datasource.password= postgres 
+
+2. A la racine du projet :
+./mvn clean spring-boot:run
