@@ -73,8 +73,20 @@ public class ReportService {
      * @param region La région
      * @return La collection des report associé à la région.
      */
-    public Collection<Report> getReportsByRegion(Region region) {
-        return getReportsByDescription(effectService.getByRegion(region));
+    public SortedMap<Report, Set<String>> getReportsByRegion(Region region) {
+        SortedMap<Report, Set<String>> result = new TreeMap<>();
+        for (Component c : componentService.getAllByRegion(region)) {
+            Collection<Report> reports = getReports(c);
+            for (Report report : reports) {
+                Set<String> composants = result.get(report);
+                if (composants == null) {
+                    composants = new TreeSet<>();
+                    result.put(report, composants);
+                }
+                composants.add(c.getName());
+            }
+        }
+        return result;
     }
 
     /**

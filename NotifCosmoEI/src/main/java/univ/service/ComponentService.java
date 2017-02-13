@@ -3,12 +3,11 @@ package univ.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import univ.domain.Component;
+import univ.domain.Effect;
+import univ.domain.Region;
 import univ.repository.ComponentRepository;
 
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 
 /**
@@ -119,5 +118,24 @@ public class ComponentService {
         newC.setName(component.getName());
         newC.setParent(component.getParent());
         return componentRepository.save(component);
+    }
+
+    public List<Component> getAllByRegion(Region r) {
+        List<Component> result = new LinkedList<>();
+        List<Component> components = componentRepository.findAll();
+        for (Component c : components) {
+            Set<Effect> effects = c.getInheritanceEffects();
+            Iterator<Effect> it = effects.iterator();
+            boolean stopLoop = false;
+            while(!stopLoop && it.hasNext()) {
+                Effect e = it.next();
+                if (r == e.getUser().getRegion()) {
+                    stopLoop = true;
+                    result.add(c);
+                }
+            }
+        }
+        Collections.sort(result);
+        return result;
     }
 }
